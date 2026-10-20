@@ -61,6 +61,9 @@ public class Robot extends RobotDefinition {
         // The intake: a 117 RPM motor (50.9:1). Its arm hinges 120 mm ahead of the centre, 150 mm up
         // (est.); straight up (95 degrees) when folded, and down on its hard stop at -40 degrees, where
         // the roller sits where goBILDA's did (187 mm ahead, 93 mm up). Gravity holds it there: passive.
+        // The arm is drawn only 95 mm long, so the spinners look like they float past its end: drawn
+        // longer, the arm's box reaches down past the roller and pushes pieces away in the simulator
+        // before the roller can take them. The size rules still count the spinners.
         // It carries up to four pieces (goBILDA's page).
         intake = add(Intake.motor("intake").part("gobilda-5203-117").holds(4)
                 .looks(Shape.arm().name("intake_arm").atMm(120, 0, 150).sizeMm(95, 312, 15)
@@ -87,7 +90,9 @@ public class Robot extends RobotDefinition {
                 .shotAngle(147));
 
         // Parts that do not move: goBILDA's two upright U-channels behind the launcher (CAD), and our
-        // ramp out of the back (est.: drawn flat; the real one slopes up toward the back).
+        // ramp out of the back (est.: drawn flat; the real one slopes up toward the back). The tower is
+        // drawn as one solid box, so the flywheel (which really turns between the two channels) looks
+        // like it is inside it: a picture only, the size rules are not changed by it.
         fixed(Shape.box("tower").atMm(-88, 0, 40).sizeMm(48, 184, 264),
               Shape.box("ramp").atMm(-180, 0, 200).sizeMm(120, 150, 10).note("est."));
 

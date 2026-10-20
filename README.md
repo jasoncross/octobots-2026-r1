@@ -38,7 +38,9 @@ shots out of the back. Device names are goBILDA's (`left_drive`, `right_drive`, 
 **Still estimates (marked "est." in Robot.java):** the intake's hinge and arm, the spinners' place, the
 deploy servo's arm, the flywheel slide, the ramp, the shot angle. Measure the robot and replace them.
 **Still to find on the robot:** the deploy servo's positions (Servo Finder, `Tunables.IntakeDeploy`),
-how the Control Hub is mounted (`imu(...)` in Robot.java).
+how the Control Hub is mounted (`imu(...)` in Robot.java), the drive's numbers with the Drive Tuner
+(then `Tunables.Drive.calibrated = true`: until then the autonomous refuses to run), and every number
+marked "est." in Robot.java (measure the robot).
 
 ## The simulator
 
