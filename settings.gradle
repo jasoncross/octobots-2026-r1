@@ -8,3 +8,5 @@ pluginManagement {
 
 include ':FtcRobotController'
 include ':TeamCode'
+include ':ftc-helper-lib'
+project(':ftc-helper-lib').projectDir = new File(rootDir, 'ftc-helper-lib/library')

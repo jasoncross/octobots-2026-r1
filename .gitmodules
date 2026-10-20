@@ -1,0 +1,3 @@
+[submodule "ftc-helper-lib"]
+	path = ftc-helper-lib
+	url = https://github.com/jasoncross/ftc-helper-lib.git
