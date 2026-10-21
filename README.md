@@ -1,7 +1,7 @@
 # Octobots 2026-27, robot 1
 
 The code for Indianola Robotics' (FTC team 8938) first robot of the BIOBUZZ season. It is the FTC SDK
-(FtcRobotController 12.0) with our helper library, [ftc-helper-lib](https://github.com/jasoncross/ftc-helper-lib),
+(FtcRobotController 12.0) with our helper library, [ftc-helper-lib](https://github.com/crossbotics/ftc-helper-lib),
 in the `ftc-helper-lib` folder (a git submodule).
 
 ## Get it
@@ -35,7 +35,15 @@ intake through miter gears, a flywheel on a sliding mount (so a NECTAR fits), an
 shots out of the back. Device names are goBILDA's (`left_drive`, `right_drive`, `intake`, `launcher`,
 `windmill`) plus `intake_deploy` (the deploy servo).
 
-**Still estimates (marked "est." in Robot.java):** the intake's hinge and arm, the spinners' place, the
+**Buttons (R1 TeleOp, one driver on gamepad 1):** left stick drive, right stick X turn; **LT slow** (the
+further you pull it, the slower, like last season); left stick click slow on/off. **B** intake on/off,
+double-tap B pushes out until the next tap (the intake starts by itself once it is deployed). **LB**
+flywheel on/off (it spins up at START), **RB** fires one (hold to keep firing), D-pad up/down flywheel
+speed. **X** deploys the intake again. **BACK** pauses everything (again: go on). **GUIDE** shows this
+map. Free: A, Y, RT, D-pad left/right.
+
+**Still estimates (marked "est." in Robot.java):** the intake's hinge and arm, the spinners' place (goBILDA
+72 mm Boot-Wheels, flush with the roller and low, from photos; the roller's tubing is soft in the simulator), the
 deploy servo's arm, the flywheel slide, the ramp, the shot angle. Measure the robot and replace them.
 **Still to find on the robot:** the deploy servo's positions (Servo Finder, `Tunables.IntakeDeploy`),
 how the Control Hub is mounted (`imu(...)` in Robot.java), the drive's numbers with the Drive Tuner

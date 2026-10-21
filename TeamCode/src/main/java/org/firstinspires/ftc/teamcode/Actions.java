@@ -6,15 +6,16 @@ import io.github.jasoncross.ftchelper.robot.Action;
 public class Actions {
 
     /**
-     * Pushes the folded intake over, then moves the servo back out of the way. The intake stays down by
-     * gravity (nothing holds it).
+     * Pushes the folded intake over, then starts the intake and moves the servo back out of the way.
+     * The intake stays down by gravity (nothing holds it).
      */
     public static Action deployIntake(Robot r) {
         return Action.named("Deploy intake")
                 .then(() -> r.intakeDeploy.goTo("deployed"))
                 // A servo cannot say where it is: isDone() guesses from Tunables.IntakeDeploy.travelSec.
                 .waitUntil("the deploy servo", r.intakeDeploy::isDone, 2.0)
-                .then(() -> r.intakeDeploy.goTo("stowed"));
+                // The intake is down now: start it (it keeps running when this action ends).
+                .then(r.intake::in, () -> r.intakeDeploy.goTo("stowed"));
     }
 
     /**
