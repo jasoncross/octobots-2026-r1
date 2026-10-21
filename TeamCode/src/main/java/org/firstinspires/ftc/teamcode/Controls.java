@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import io.github.jasoncross.ftchelper.robot.ControlMap;
-import io.github.jasoncross.ftchelper.robot.Pad;
+import com.crossbotics.ftchelper.robot.ControlMap;
+import com.crossbotics.ftchelper.robot.Pad;
 
 /**
  * Robot 1, version 1 (file 3 of 5): the BUTTONS, and the TeleOp. Like goBILDA's code, one driver does

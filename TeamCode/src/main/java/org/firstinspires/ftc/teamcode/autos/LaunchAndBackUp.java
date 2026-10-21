@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.autos;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import io.github.jasoncross.ftchelper.robot.Auto;
-import io.github.jasoncross.ftchelper.robot.Steps;
+import com.crossbotics.ftchelper.robot.Auto;
+import com.crossbotics.ftchelper.robot.Steps;
 import org.firstinspires.ftc.teamcode.Actions;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Tunables;
