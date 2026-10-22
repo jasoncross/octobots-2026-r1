@@ -32,11 +32,17 @@ public class Tunables {
         public static double travelSec = 0.5;
     }
 
-    /** shotIntervalSec: time between two shots while RB is held (the library's default, 0.25 s). */
+    /**
+     * shotIntervalSec: time between two shots while RB is held (the library's default, 0.25 s).
+     * nominalVolts: the battery voltage kP..kF were found at (12.8 V until the Flywheel Finder shows ours).
+     * batteryCompensation stays OFF (not yet proven on a real robot): turn it on only after the
+     * 4-shot test in the library's launcher docs.
+     */
     public static class Launcher {
         public static double speedRpm = 2679, stepRpm = 50, readyBandRpm = 107, idleRpm = 0;
         public static double shotIntervalSec = 0.25;
-        public static double kP = 40, kI = 0, kD = 0, kF = 12.5;
+        public static double kP = 40, kI = 0, kD = 0, kF = 12.5, nominalVolts = 12.8;
+        public static boolean batteryCompensation = false;
     }
 
     /** The windmill: full power, for feedSec per piece (a starting guess: watch it and tune it). */
@@ -44,7 +50,13 @@ public class Tunables {
         public static double power = 1.0, feedSec = 0.3;
     }
 
+    /**
+     * The autonomous "R1 Launch and Park" (autos/LaunchAndPark.java): inches and powers of its moves, and
+     * the seconds kept for parking (its park steps take about 6 s in the simulator).
+     */
     public static class Auto {
-        public static double backInches = 4.7, backPower = 0.4;   // goBILDA's auto: 120 mm back
+        public static double offWallInches = 4, alongWallInches = 85.5, intoZoneInches = 12.6;
+        public static double slowPower = 0.4, drivePower = 0.6, turnPower = 0.5;
+        public static double parkSeconds = 10;
     }
 }

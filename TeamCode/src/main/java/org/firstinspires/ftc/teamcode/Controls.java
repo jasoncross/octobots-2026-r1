@@ -32,6 +32,7 @@ public class Controls extends ControlMap<Robot> {
         }, robot.intake::out).says("intake on/off; double-tap: out until tapped");
         g1.rt.free();   // the intake is on B now
         g1.lt.slow();   // LT: drive slowly while held (not the intake)
-        if (Robot.HAS_DEPLOY_SERVO) g1.x.press(Actions.deployIntake(robot)).says("deploy intake");
+        // X: push the intake over again. needs(...): off while the deploy servo is not on the robot.
+        g1.x.press(Actions.deployIntake(robot)).says("deploy intake").needs(robot.intakeDeploy);
     }
 }

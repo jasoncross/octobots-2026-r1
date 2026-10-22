@@ -15,7 +15,7 @@ expect shape intake_arm = -40 0.1      # and the intake stays down
 expect size match ok                   # deployed: 18 x 24 x 29 in
 set preload off                        # start empty, so the pick-up below is a real one
 expect stored = 0
-set piece POLLEN -56 -50                # a POLLEN 11 in ahead of the robot
+set piece POLLEN 56 50                  # a POLLEN 11 in ahead of the robot (TeleOp starts on BLUE: x 56, y 61.1)
 expect within 1 motor intake power > 0.9   # deployed: the intake runs
 hold g1.left_stick_y -0.4              # drive forward onto it
 expect within 3 stored >= 1

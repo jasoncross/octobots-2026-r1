@@ -7,7 +7,9 @@ public class Actions {
 
     /**
      * Pushes the folded intake over, then starts the intake and moves the servo back out of the way.
-     * The intake stays down by gravity (nothing holds it).
+     * The intake stays down by gravity (nothing holds it). With no deploy servo in the configuration
+     * (optional() in Robot.java) the servo steps and their wait are skipped: the intake was put down by
+     * hand, and this just starts it.
      */
     public static Action deployIntake(Robot r) {
         return Action.named("Deploy intake")
@@ -16,11 +18,6 @@ public class Actions {
                 .waitUntil("the deploy servo", r.intakeDeploy::isDone, 2.0)
                 // The intake is down now: start it (it keeps running when this action ends).
                 .then(r.intake::in, () -> r.intakeDeploy.goTo("stowed"));
-    }
-
-    /** With no deploy servo yet (Robot.HAS_DEPLOY_SERVO false): the intake is already down, so just start it. */
-    public static Action startIntake(Robot r) {
-        return Action.named("Start intake").then(r.intake::in);
     }
 
     /**

@@ -1,15 +1,18 @@
-# Robot 1 with NO deploy servo yet (Robot.HAS_DEPLOY_SERVO = false): the intake is put down by hand
-# before the match, so it starts down. INIT works with no "intake_deploy" in the configuration, the
-# intake starts at START, picks up a POLLEN, and a piece is fired.
+# Robot 1 with NO deploy servo in the robot configuration (it is optional() in Robot.java): the intake
+# is put down by hand before the match, so it starts down. INIT goes on with a note, the intake starts
+# at START, X (deploy) is off, it picks up a POLLEN, and a piece is fired.
+# Run it (from the ftc-helper-lib folder):  ./gradlew :sim:scenario -Pfile=../simulator/scenarios/r1-no-deploy-servo.sim
 robot ../robot.properties
+set device intake_deploy missing       # not in the configuration (from this INIT)
 init "R1 TeleOp"
 expect error none                      # no "No Servo named intake_deploy" at INIT
+expect screen has "not in the configuration"   # INIT says the part is off
 expect shape intake_arm = -40 0.1      # down from the start (put down by hand)
 print size                             # the start cube: see the team page
 start
 expect within 1 motor intake power > 0.9   # the intake starts at START
 set preload off
-set piece POLLEN -56 -50                # a POLLEN 11 in ahead of the robot
+set piece POLLEN 56 50                  # a POLLEN 11 in ahead of the robot (TeleOp starts on BLUE: x 56, y 61.1)
 hold g1.left_stick_y -0.4              # drive forward onto it
 expect within 3 stored >= 1
 release all

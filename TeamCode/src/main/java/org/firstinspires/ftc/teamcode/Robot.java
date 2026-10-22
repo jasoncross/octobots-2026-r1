@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection;
+import com.crossbotics.ftchelper.robot.Action;
 import com.crossbotics.ftchelper.robot.Drive;
 import com.crossbotics.ftchelper.robot.Indexer;
 import com.crossbotics.ftchelper.robot.Intake;
@@ -36,10 +37,11 @@ public class Robot extends RobotDefinition {
     public Launcher launcher;
 
     /**
-     * Is the fold-out (deploy) servo on the robot and in the robot configuration? While it is false, the
-     * code has no "intake_deploy": the intake is put down by hand before the match and starts at START.
+     * Push the intake over right after START? An autonomous that starts with the robot's front against a
+     * wall sets this false in its steps (the intake would fall onto the wall) and deploys the intake itself
+     * once the robot has backed away (autos/LaunchAndPark.java). TeleOp makes a new Robot: true again.
      */
-    public static final boolean HAS_DEPLOY_SERVO = true;
+    public boolean deployAtStart = true;
 
     @Override
     protected void define() {
@@ -60,11 +62,13 @@ public class Robot extends RobotDefinition {
         // The deploy servo: a Speed servo taken off the old corner wheels, in servo mode. Its short arm
         // pushes the folded intake over at START, then goes back (Actions.deployIntake). If it is too
         // weak to push the intake over, use the Torque servo: part("gobilda-2000-torque").
-        if (HAS_DEPLOY_SERVO) {
-            intakeDeploy = add(Positioner.servo("intake_deploy").part("gobilda-2000-speed")
-                    .looks(Shape.arm().name("deploy_kicker").atMm(120, 130, 150).sizeMm(50, 15, 15)
-                            .angle("stowed", 90).angle("deployed", 30).note("est.")));
-        }
+        // optional(): until "intake_deploy" is in the robot configuration, the servo is off (INIT goes
+        // on, with a note; at events a loud warning) and the intake is put down by hand before the match.
+        // The deploy action then just starts the intake, and X does nothing. No code to change when the
+        // servo is added: put it in the configuration and INIT again.
+        intakeDeploy = add(Positioner.servo("intake_deploy").part("gobilda-2000-speed").optional()
+                .looks(Shape.arm().name("deploy_kicker").atMm(120, 130, 150).sizeMm(50, 15, 15)
+                        .angle("stowed", 90).angle("deployed", 30).note("est.")));
 
         // The intake: a 117 RPM motor (50.9:1). Its arm hinges 120 mm ahead of the centre, 150 mm up
         // (est.); straight up (95 degrees) when folded, and down on its hard stop at -40 degrees, where
@@ -75,12 +79,9 @@ public class Robot extends RobotDefinition {
         // every shape.
         // It carries up to four pieces (goBILDA's page). It starts running once it is deployed
         // (Actions.deployIntake), not before: B stops and starts it.
-        Shape intakeArm = Shape.arm().name("intake_arm").atMm(120, 0, 150).sizeMm(95, 240, 15)
-                .range(-40, 95).note("est.");
-        if (HAS_DEPLOY_SERVO) intakeArm.startAt(95).dropsWhen(intakeDeploy, "deployed", -40);
-        else intakeArm.startAt(-40).passive();   // no servo: put down by hand before the match
         intake = add(Intake.motor("intake").part("gobilda-5203-117").holds(4)
-                .looks(intakeArm,
+                .looks(Shape.arm().name("intake_arm").atMm(120, 0, 150).sizeMm(95, 240, 15)
+                                .range(-40, 95).startAt(95).dropsWhen(intakeDeploy, "deployed", -40).note("est."),
                         // The main roller: 90 mm and 60 mm tubing rollers taking turns on a 240 mm shaft. The
                         // tubing is soft: it bends against a FLOWER instead of stopping the robot (photos,
                         // 2026-10-20), so only pieces touch it in the simulator. It is too tall to go into a
@@ -119,7 +120,8 @@ public class Robot extends RobotDefinition {
               Shape.box("ramp").atMm(-180, 0, 200).sizeMm(120, 150, 10).note("est."));
 
         // Right after START (never in INIT: nothing may move before START), push the intake over.
-        // (No deploy servo yet: just start the intake.)
-        atStart(() -> HAS_DEPLOY_SERVO ? Actions.deployIntake(this) : Actions.startIntake(this));
+        // (No deploy servo in the configuration: the push is skipped and the intake just starts.)
+        atStart(() -> deployAtStart ? Actions.deployIntake(this)
+                : Action.named("Intake stays folded (the autonomous deploys it)"));
     }
 }

@@ -2,7 +2,7 @@
 
 The code for Indianola Robotics' (FTC team 8938) first robot of the BIOBUZZ season. It is the FTC SDK
 (FtcRobotController 12.0) with our helper library, [ftc-helper-lib](https://github.com/crossbotics/ftc-helper-lib),
-in the `ftc-helper-lib` folder (a git submodule). **Library version: v0.16.0** (`git submodule status` shows it).
+in the `ftc-helper-lib` folder (a git submodule). **Library version: v0.17.0** (`git submodule status` shows it; until the tag exists, library `main` at 4e43f17).
 
 ## Get it
 
@@ -22,7 +22,7 @@ All in `TeamCode/src/main/java/org/firstinspires/ftc/teamcode/`:
 | `Tunables.java` | every number, one section per part |
 | `Controls.java` | the buttons, and the TeleOp ("R1 TeleOp") |
 | `Actions.java` | steps that use several parts (deploy the intake, fire all) |
-| `autos/` | the autonomous programs |
+| `autos/` | the autonomous: **R1 Launch and Park** (below) |
 
 How the library works: `ftc-helper-lib/docs/modules/robot.md`; short "how do I...?" answers:
 `ftc-helper-lib/docs/cookbook.md`.
@@ -63,9 +63,57 @@ deploy servo's arm, the flywheel slide, the ramp, the shot angle. Measure the ro
    and the windmill's `feedSec` (0.3 s guess: watch it feed one piece).
 5. The wheel size with **R1 Drive Tuner**, then `Tunables.Drive.calibrated = true` (until then the
    autonomous refuses to run).
-6. The real start spot in `autos/LaunchAndBackUp.java` (est.).
+6. The shot: its real launch angle and speed (see "The autonomous" below), then the start spot.
 7. Every number marked "est." or GUESS in Robot.java (measure the robot), then remake the simulator's
    robot file (below).
+
+## The autonomous: R1 Launch and Park
+
+`autos/LaunchAndPark.java`. It fires the four preloaded POLLEN into our HIVE's up CELL, then parks
+partly in our LOADING ZONE without touching a wall (LEAVE 3 + PARK 5). Same route for RED and BLUE,
+each from its own wall (the field is turned, not mirrored).
+
+**Place the robot** (Driver Station: "Nose corner on wall 20.5in from R, back at HIVE"): on our side,
+right of centre, the robot's **front-right corner touching our wall, 20.5 in from the right-hand wall**,
+the body turned 52 degrees to the wall so the **back (the ramp) points at our HIVE's up CELL**. Intake
+folded. Legal by G304: touching the wall, in our half, not in the LOADING ZONE, clear of the FLOWER.
+
+**Why there:** the up CELL's opening faces the audience side, so a shot must come down into it from that
+side. The simulator's hit rate (400 shots, realistic scatter) from spots along our wall found a
+band right of centre; this spot is the best one that keeps 4.5 in from the GARDEN's POLLEN:
+
+| Shot (from the spot, after backing 4 in) | 210 in/s | 220 in/s | 230 in/s | 240 in/s |
+| --- | --- | --- | --- | --- |
+| 70 degrees up | 1 % | 71 % | 98 % | 30 % |
+| 65 degrees up | 8 % | 96 % | 90 % | 5 % |
+| 60 or 55 degrees up | 0 | 0 | 0 | 0 |
+
+**Important:** the robot file's shot is 147 degrees (33 up, goBILDA's hood), and with that no shot
+reaches an up CELL from anywhere on the field (it peaks at 34 in; the CELL's opening is 53-65 in up).
+So the real ramp must launch steeper, or the shots will not score. Measure it (below).
+
+**Route** (tank: turns, forward and back only; numbers in `Tunables.Auto`): back 4 in off the wall,
+fire all four (the intake stays folded until now: at START it would fall onto the wall, so the auto
+sets `Robot.deployAtStart = false`); turn 45 degrees left, push the intake over, back 85.5 in along
+our wall past our FLOWER; turn to face the far wall and back 12.6 in into the LOADING ZONE. It ends
+about 2.5-3 in from our wall, partly in the zone, after about 17 s. `parkWithSeconds(10)` keeps
+time for the park steps if firing is slow.
+
+**Check it** (from the `ftc-helper-lib` folder): `./gradlew :sim:scenario -Pfile=../simulator/scenarios/r1-auto.sim`.
+It checks the start spot, four fired, the intake pushed over off the wall, no bumps, the end pose
+(at least 2 in from the wall, in the zone), under 25 s, and prints the shot verdicts and points. With
+the robot file's shot: 0 of 4 in the CELL, red 22-23 points. With a 65 or 70 degree shot at 225 in/s
+(a test copy of the robot file): 4 of 4 clean, 5 runs each, the HIVE tips (+20), red 37-38.
+
+**Measure on the robot before trusting it:**
+1. The shot: film a shot from the side next to a tape measure. Launch angle (degrees up from the
+   floor) and exit speed (inches per second). Put the angle in Robot.java (`shotAngle(180 - up)`),
+   remake the robot file, and run the hit rate from the start spot (simulator page: Hit rate).
+2. Then the speed: tune `Tunables.Launcher.speedRpm` from the start spot until all four go in.
+3. That the four preloads fire with the intake still folded up.
+4. The drive: R1 Drive Tuner first (the inches are only right on a tuned robot), then check the end
+   spot: at least 2 in from the wall, partly in the LOADING ZONE. Change `Tunables.Auto` if not.
+5. Our partner robot must not start or park in the same places.
 
 ## Update the library
 
@@ -98,17 +146,19 @@ Check it (size rules, the intake drops at START, picks up a POLLEN, fires it):
 ./gradlew :sim:scenario -Pfile=../simulator/scenarios/r1-v1.sim
 ```
 
-and the autonomous (from the start spot it fires all four, then drives away from the goal):
+and the autonomous (from its start spot it fires all four, then parks in the LOADING ZONE):
 
 ```bash
 ./gradlew :sim:scenario -Pfile=../simulator/scenarios/r1-auto.sim
 ```
 
-No fold-out servo on the robot yet? Set `HAS_DEPLOY_SERVO = false` in `Robot.java` (the intake is then put
-down by hand before the match and starts at START), remake the robot file as above, and check it with
-`r1-no-deploy-servo.sim` instead of `r1-v1.sim`. Put it back to `true` when the servo is added, and run the
-**R1 Servo Finder** before any TeleOp. Note: with the intake down, the robot may be too long for the
-18 in start cube; check it in a sizing box.
+No fold-out servo on the robot yet? Nothing to change: `intake_deploy` is `optional()` in `Robot.java`.
+Leave it out of the robot configuration: INIT says it is off (at events a loud `!!` warning), the intake
+is put down by hand before the match and starts at START, and X does nothing. Add it to the configuration
+when the servo is on, and run the **R1 Servo Finder** before any TeleOp. Note: with the intake down, the
+robot may be too long for the 18 in start cube; check it in a sizing box. `r1-no-deploy-servo.sim`
+checks this (`set device intake_deploy missing`); in the browser simulator, add `missing = intake_deploy`
+to the robot file.
 
 ```bash
 ./gradlew :sim:scenario -Pfile=../simulator/scenarios/r1-no-deploy-servo.sim
