@@ -14,21 +14,19 @@ import com.crossbotics.ftchelper.robot.Shape;
 /**
  * Robot 1, version 1 (file 1 of 5): WHAT is on the robot. It is goBILDA's BIOBUZZ starter bot
  * (3200-2627-0003) with our changes:
- * <ul>
- *   <li>The intake folds up at the start (inside the 18 in cube). At START a servo pushes it over; then
- *       it rests on a hard stop by gravity, and floats up when a NECTAR comes under it.</li>
- *   <li>Its rollers are Offset surgical tubing rollers, 90 mm and 60 mm taking turns, not Gecko wheels.</li>
- *   <li>The two corner wheels (on CR servos before) are now two 72 mm Boot-Wheel spinners, driven from the
- *       intake shaft through miter gears: the intake motor turns them, so they are not in the code.</li>
- *   <li>The flywheel's motor sits on a sliding mount (springs or gravity), so a NECTAR fits too. Shots
- *       leave up a ramp out of the BACK.</li>
- * </ul>
+ * - The intake folds up at the start (inside the 18 in cube). At START a servo pushes it over; then
+ *   it rests on a hard stop by gravity, and floats up when a NECTAR comes under it.
+ * - Its rollers are Offset surgical tubing rollers, 90 mm and 60 mm taking turns, not Gecko wheels.
+ * - The two corner wheels (on CR servos before) are now two 72 mm Boot-Wheel spinners, driven from the
+ *   intake shaft through miter gears: the intake motor turns them, so they are not in the code.
+ * - The flywheel's motor sits on a sliding mount (springs or gravity), so a NECTAR fits too. Shots
+ *   leave up a ramp out of the BACK.
  *
- * <p>Parts are named by their parts catalog id; sizes and places are in mm. A number with "est." after
+ * Parts are named by their parts catalog id; sizes and places are in mm. A number with "est." after
  * it is an estimate from goBILDA's starter bot CAD: measure our robot and replace it. Places: forward,
  * left, up from the middle of the chassis on the tiles.
  *
- * <p>The simulator's robot file is made from this file: {@code ./gradlew :sim:fromRobot -PteamCode=../TeamCode}
+ * The simulator's robot file is made from this file: {@code ./gradlew :sim:fromRobot -PteamCode=../TeamCode}
  * (from the ftc-helper-lib folder).
  */
 public class Robot extends RobotDefinition {

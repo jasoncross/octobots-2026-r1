@@ -5,7 +5,7 @@ package org.firstinspires.ftc.teamcode;
  * goBILDA's code: it spins to 1250 counts per second (2679 RPM) and feeds above 1200 (107 RPM below),
  * with the hub's speed control at P 40, F 12.5.
  *
- * <p>Tune on the robot with the tuning menu (PRACTICE profile: INIT, START, then hold GUIDE on gamepad 1
+ * Tune on the robot with the tuning menu (PRACTICE profile: INIT, START, then hold GUIDE on gamepad 1
  * for 1 s): INIT lists every value that differs from this file, ready to copy back. This file stays the
  * record. The finders (the "Finders" group on the Driver Station, files in {@code finders/}) measure
  * the numbers and show the lines to copy here.

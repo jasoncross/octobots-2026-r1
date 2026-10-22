@@ -7,16 +7,14 @@ import com.crossbotics.ftchelper.robot.Pad;
 /**
  * Robot 1, version 1 (file 3 of 5): the BUTTONS, and the TeleOp. Like goBILDA's code, one driver does
  * everything on gamepad 1 ({@code oneDriver = true}):
- * <ul>
- *   <li>left stick forward/back drives, right stick X turns. LT: slow while held (left stick click:
- *       slow on/off)</li>
- *   <li>the intake runs once it is deployed (just after START). B: intake on / off. Double-tap B: push pieces out, until B is
- *       tapped again (then it runs in).</li>
- *   <li>LB spins the flywheel up / down, RB fires one piece (it waits until the wheel is at speed;
- *       hold RB to keep firing until you let go)</li>
- *   <li>D-pad up/down: flywheel speed +/- 50 RPM</li>
- *   <li>X: push the intake over again (if it did not fall at START)</li>
- * </ul>
+ * - left stick forward/back drives, right stick X turns. LT: slow while held (left stick click:
+ *   slow on/off)
+ * - the intake runs once it is deployed (just after START). B: intake on / off. Double-tap B: push pieces out, until B is
+ *   tapped again (then it runs in).
+ * - LB spins the flywheel up / down, RB fires one piece (it waits until the wheel is at speed;
+ *   hold RB to keep firing until you let go)
+ * - D-pad up/down: flywheel speed +/- 50 RPM
+ * - X: push the intake over again (if it did not fall at START)
  */
 @TeleOp(name = "R1 TeleOp")
 public class Controls extends ControlMap<Robot> {

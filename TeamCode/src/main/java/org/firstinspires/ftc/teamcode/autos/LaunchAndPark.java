@@ -11,21 +11,19 @@ import org.firstinspires.ftc.teamcode.Tunables;
  * Robot 1, version 1 (file 5 of 5): fire the four preloaded POLLEN into our HIVE's up CELL, then park in
  * our LOADING ZONE without touching a wall (LEAVE 3 + PARK 5 points).
  *
- * <p><b>Start</b> (G304: touching the wall, our half, not in the LOADING ZONE or on a FLOWER): right of
+ * Start (G304: touching the wall, our half, not in the LOADING ZONE or on a FLOWER): right of
  * centre, the robot's front-right corner on our wall, 20.5 in from the right-hand wall, the back (the
  * ramp) aimed at the HIVE's up CELL (the body turned 52 degrees to the wall). Why there: the up CELL's
  * opening faces the audience side, so a shot must come down into it from that side; from this spot, in
  * the simulator, a steep shot goes in cleanly 90-98 % of the time (README, "The autonomous").
  *
- * <p><b>Route</b> (tank drive: turns, forward and back only; the numbers are in Tunables.Auto):
- * <ol>
- *   <li>back 4 in off the wall (toward the HIVE), then fire all four. The intake stays folded until
- *       later: at START it would fall onto the wall (Robot.deployAtStart).</li>
- *   <li>turn 45 degrees left, push the intake over (clear of the walls now), back 85.5 in along our
- *       wall, past our FLOWER, to above the middle of the LOADING ZONE</li>
- *   <li>turn to face the far wall and back 12.6 in into the LOADING ZONE: the ramp ends about 2.5 in from our
- *       wall, partly in the zone, touching nothing.</li>
- * </ol>
+ * Route (tank drive: turns, forward and back only; the numbers are in Tunables.Auto):
+ * 1. back 4 in off the wall (toward the HIVE), then fire all four. The intake stays folded until
+ *   later: at START it would fall onto the wall (Robot.deployAtStart).
+ * 2. turn 45 degrees left, push the intake over (clear of the walls now), back 85.5 in along our
+ *   wall, past our FLOWER, to above the middle of the LOADING ZONE
+ * 3. turn to face the far wall and back 12.6 in into the LOADING ZONE: the ramp ends about 2.5 in from our
+ *   wall, partly in the zone, touching nothing.
  * Headings below are the field's as seen from our wall (0 = facing the far wall, counterclockwise +).
  * simulator/scenarios/r1-auto.sim checks it.
  */
