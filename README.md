@@ -104,6 +104,16 @@ and the autonomous (from the start spot it fires all four, then drives away from
 ./gradlew :sim:scenario -Pfile=../simulator/scenarios/r1-auto.sim
 ```
 
+No fold-out servo on the robot yet? Set `HAS_DEPLOY_SERVO = false` in `Robot.java` (the intake is then put
+down by hand before the match and starts at START), remake the robot file as above, and check it with
+`r1-no-deploy-servo.sim` instead of `r1-v1.sim`. Put it back to `true` when the servo is added, and run the
+**R1 Servo Finder** before any TeleOp. Note: with the intake down, the robot may be too long for the
+18 in start cube; check it in a sizing box.
+
+```bash
+./gradlew :sim:scenario -Pfile=../simulator/scenarios/r1-no-deploy-servo.sim
+```
+
 Drive it in a browser (then open http://localhost:8780 and pick "R1 TeleOp"):
 
 ```bash

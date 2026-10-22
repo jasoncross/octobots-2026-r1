@@ -18,6 +18,11 @@ public class Actions {
                 .then(r.intake::in, () -> r.intakeDeploy.goTo("stowed"));
     }
 
+    /** With no deploy servo yet (Robot.HAS_DEPLOY_SERVO false): the intake is already down, so just start it. */
+    public static Action startIntake(Robot r) {
+        return Action.named("Start intake").then(r.intake::in);
+    }
+
     /**
      * Fires every piece it holds (up to four): spins up, then feeds them one by one as soon as the wheel
      * is at speed. It uses only the launcher, so the intake keeps doing what it does: in the autonomous

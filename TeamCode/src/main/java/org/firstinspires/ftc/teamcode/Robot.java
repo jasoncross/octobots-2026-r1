@@ -35,6 +35,12 @@ public class Robot extends RobotDefinition {
     public Intake intake;
     public Launcher launcher;
 
+    /**
+     * Is the fold-out (deploy) servo on the robot and in the robot configuration? While it is false, the
+     * code has no "intake_deploy": the intake is put down by hand before the match and starts at START.
+     */
+    public static final boolean HAS_DEPLOY_SERVO = true;
+
     @Override
     protected void define() {
         // The drive: goBILDA's 6-wheel drop-center chassis, one 312 RPM motor per side, 96 mm wheels
@@ -54,9 +60,11 @@ public class Robot extends RobotDefinition {
         // The deploy servo: a Speed servo taken off the old corner wheels, in servo mode. Its short arm
         // pushes the folded intake over at START, then goes back (Actions.deployIntake). If it is too
         // weak to push the intake over, use the Torque servo: part("gobilda-2000-torque").
-        intakeDeploy = add(Positioner.servo("intake_deploy").part("gobilda-2000-speed")
-                .looks(Shape.arm().name("deploy_kicker").atMm(120, 130, 150).sizeMm(50, 15, 15)
-                        .angle("stowed", 90).angle("deployed", 30).note("est.")));
+        if (HAS_DEPLOY_SERVO) {
+            intakeDeploy = add(Positioner.servo("intake_deploy").part("gobilda-2000-speed")
+                    .looks(Shape.arm().name("deploy_kicker").atMm(120, 130, 150).sizeMm(50, 15, 15)
+                            .angle("stowed", 90).angle("deployed", 30).note("est.")));
+        }
 
         // The intake: a 117 RPM motor (50.9:1). Its arm hinges 120 mm ahead of the centre, 150 mm up
         // (est.); straight up (95 degrees) when folded, and down on its hard stop at -40 degrees, where
@@ -67,9 +75,12 @@ public class Robot extends RobotDefinition {
         // every shape.
         // It carries up to four pieces (goBILDA's page). It starts running once it is deployed
         // (Actions.deployIntake), not before: B stops and starts it.
+        Shape intakeArm = Shape.arm().name("intake_arm").atMm(120, 0, 150).sizeMm(95, 240, 15)
+                .range(-40, 95).note("est.");
+        if (HAS_DEPLOY_SERVO) intakeArm.startAt(95).dropsWhen(intakeDeploy, "deployed", -40);
+        else intakeArm.startAt(-40).passive();   // no servo: put down by hand before the match
         intake = add(Intake.motor("intake").part("gobilda-5203-117").holds(4)
-                .looks(Shape.arm().name("intake_arm").atMm(120, 0, 150).sizeMm(95, 240, 15)
-                                .range(-40, 95).startAt(95).dropsWhen(intakeDeploy, "deployed", -40).note("est."),
+                .looks(intakeArm,
                         // The main roller: 90 mm and 60 mm tubing rollers taking turns on a 240 mm shaft. The
                         // tubing is soft: it bends against a FLOWER instead of stopping the robot (photos,
                         // 2026-10-20), so only pieces touch it in the simulator. It is too tall to go into a
@@ -108,6 +119,7 @@ public class Robot extends RobotDefinition {
               Shape.box("ramp").atMm(-180, 0, 200).sizeMm(120, 150, 10).note("est."));
 
         // Right after START (never in INIT: nothing may move before START), push the intake over.
-        atStart(() -> Actions.deployIntake(this));
+        // (No deploy servo yet: just start the intake.)
+        atStart(() -> HAS_DEPLOY_SERVO ? Actions.deployIntake(this) : Actions.startIntake(this));
     }
 }
