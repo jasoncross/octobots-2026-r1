@@ -17,7 +17,7 @@ import com.crossbotics.ftchelper.robot.Shape;
  *   <li>The intake folds up at the start (inside the 18 in cube). At START a servo pushes it over; then
  *       it rests on a hard stop by gravity, and floats up when a NECTAR comes under it.</li>
  *   <li>Its rollers are Offset surgical tubing rollers, 90 mm and 60 mm taking turns, not Gecko wheels.</li>
- *   <li>The two corner wheels (on CR servos before) are now two 90 mm tubing spinners, driven from the
+ *   <li>The two corner wheels (on CR servos before) are now two 72 mm Boot-Wheel spinners, driven from the
  *       intake shaft through miter gears: the intake motor turns them, so they are not in the code.</li>
  *   <li>The flywheel's motor sits on a sliding mount (springs or gravity), so a NECTAR fits too. Shots
  *       leave up a ramp out of the BACK.</li>

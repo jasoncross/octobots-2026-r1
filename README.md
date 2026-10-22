@@ -29,7 +29,8 @@ How the library works: `ftc-helper-lib/docs/modules/robot.md`; short "how do I..
 
 **The finders** (`finders/`, the "Finders" group on the Driver Station) measure the numbers and show the
 lines to copy into `Tunables.java` or `Robot.java`: **R1 Hardware Check** (every device found, each motor
-turns the right way), **R1 Servo Finder** (the deploy servo's positions), **R1 Flywheel Finder** (the
+turns the right way), **R1 Motor Direction Check** (wheels off the ground: X = left, Y = right, each
+wheel must roll forward), **R1 Servo Finder** (the deploy servo's positions), **R1 Flywheel Finder** (the
 launcher's kP..kF), **R1 Drive Tuner** (the wheel size, for the autonomous).
 How: `ftc-helper-lib/docs/guides/finders.md`.
 
@@ -53,7 +54,8 @@ map (hold GUIDE 1 s after START, PRACTICE profile: the tuning menu). Free: A, Y,
 72 mm Boot-Wheels, flush with the roller and low, from photos; the roller's tubing is soft in the simulator), the
 deploy servo's arm, the flywheel slide, the ramp, the shot angle. Measure the robot and replace them.
 **Still to find on the robot**, in this order:
-1. **R1 Hardware Check**: every device found, each motor and servo turns the right way.
+1. **R1 Hardware Check**: every device found, each motor and servo turns the right way. Then
+   **R1 Motor Direction Check** (robot on a block): each drive wheel rolls forward.
 2. How the Control Hub is mounted (`imu(...)` in Robot.java: the way its logo and USB port face).
 3. The deploy servo's positions with **R1 Servo Finder** (`Tunables.IntakeDeploy`: `stowed`,
    `deployed`), and how long its push takes (`travelSec`, now a 0.5 s guess).
