@@ -20,20 +20,14 @@ public class Actions {
 
     /**
      * Fires every piece it holds (up to four): spins up, then feeds them one by one as soon as the wheel
-     * is at speed. It uses only the launcher, so the driver can still run the intake (RT) to help push
-     * pieces in. (An action that also ran the intake would stop the moment the driver touched RT.)
+     * is at speed. It uses only the launcher, so the intake keeps doing what it does: in the autonomous
+     * it is already running (deployIntake starts it), so it helps push the pieces in; in TeleOp the
+     * driver can still switch it with B. (An action that also used the intake would be stopped by
+     * deployIntake at START, or by the driver touching B: one part, one owner.)
      */
     public static Action fireAll(Robot r) {
         return Action.named("Fire all")
                 .then(() -> r.launcher.fire(4))
                 .waitUntil("the shots", () -> !r.launcher.isShooting(), 10.0);
-    }
-
-    /** For the autonomous: the intake helps push the pieces in while they are fired. */
-    public static Action fireAllWithIntake(Robot r) {
-        return Action.named("Fire all")
-                .then(r.intake::in, () -> r.launcher.fire(4))
-                .waitUntil("the shots", () -> !r.launcher.isShooting(), 10.0)
-                .then(r.intake::stop);
     }
 }

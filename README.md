@@ -96,6 +96,12 @@ Check it (size rules, the intake drops at START, picks up a POLLEN, fires it):
 ./gradlew :sim:scenario -Pfile=../simulator/scenarios/r1-v1.sim
 ```
 
+and the autonomous (from the start spot it fires all four, then drives away from the goal):
+
+```bash
+./gradlew :sim:scenario -Pfile=../simulator/scenarios/r1-auto.sim
+```
+
 Drive it in a browser (then open http://localhost:8780 and pick "R1 TeleOp"):
 
 ```bash

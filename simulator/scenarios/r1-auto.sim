@@ -1,0 +1,24 @@
+# Robot 1 v1, the autonomous "R1 Launch and Back Up": from the start spot it fires the four preloaded
+# pieces (while the intake, pushed over at START, keeps running) and drives 4.7 in away from the goal,
+# well inside the 30 s. It caught a bug (2026-10-22): the fire step also claimed the intake, so the
+# deploy (Robot.java's atStart) stopped it and nothing was fired ("Fire all: stopped: Intake taken by
+# Deploy intake").
+# Run it (from the ftc-helper-lib folder):  ./gradlew :sim:scenario -Pfile=../simulator/scenarios/r1-auto.sim
+robot ../robot.properties
+init "R1 Launch and Back Up"
+press g1.x                                 # BLUE
+wait 0.5                                   # the robot is placed on the chosen side
+expect robot x = 56 0.5                    # the start spot, in the simulator's field numbers (BLUE wall at +y;
+expect robot y = 61.1 0.5                  # the robot file's start.x/y is the same spot on the RED side)
+expect robot heading = 180 1
+expect stored = 4                          # four preloaded
+start
+expect within 3 shape intake_arm = -40 0.1    # the intake is pushed over at START
+expect within 2 motor intake power > 0.9   # and runs (it helps push the pieces in)
+expect within 14 launched >= 4             # all four fired
+expect stored = 0
+expect within 5 screen has "Away from the goal: done"
+expect screen not "stopped"                # no step was stopped (a part taken by another action)
+expect robot y < 58                        # moved about 4.7 in away from the goal (toward the middle)
+expect robot y > 54
+expect error none
