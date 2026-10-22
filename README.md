@@ -2,7 +2,7 @@
 
 The code for Indianola Robotics' (FTC team 8938) first robot of the BIOBUZZ season. It is the FTC SDK
 (FtcRobotController 12.0) with our helper library, [ftc-helper-lib](https://github.com/crossbotics/ftc-helper-lib),
-in the `ftc-helper-lib` folder (a git submodule).
+in the `ftc-helper-lib` folder (a git submodule). **Library version: v0.16.0** (`git submodule status` shows it).
 
 ## Get it
 
@@ -24,7 +24,14 @@ All in `TeamCode/src/main/java/org/firstinspires/ftc/teamcode/`:
 | `Actions.java` | steps that use several parts (deploy the intake, fire all) |
 | `autos/` | the autonomous programs |
 
-How the library works: `ftc-helper-lib/docs/modules/robot.md`.
+How the library works: `ftc-helper-lib/docs/modules/robot.md`; short "how do I...?" answers:
+`ftc-helper-lib/docs/cookbook.md`.
+
+**The finders** (`finders/`, the "Finders" group on the Driver Station) measure the numbers and show the
+lines to copy into `Tunables.java` or `Robot.java`: **R1 Hardware Check** (every device found, each motor
+turns the right way), **R1 Servo Finder** (the deploy servo's positions), **R1 Flywheel Finder** (the
+launcher's kP..kF), **R1 Drive Tuner** (the wheel size, for the autonomous).
+How: `ftc-helper-lib/docs/guides/finders.md`.
 
 ## Version 1
 
@@ -40,15 +47,39 @@ further you pull it, the slower, like last season); left stick click slow on/off
 double-tap B pushes out until the next tap (the intake starts by itself once it is deployed). **LB**
 flywheel on/off (it spins up at START), **RB** fires one (hold to keep firing), D-pad up/down flywheel
 speed. **X** deploys the intake again. **BACK** pauses everything (again: go on). **GUIDE** shows this
-map. Free: A, Y, RT, D-pad left/right.
+map (hold GUIDE 1 s after START, PRACTICE profile: the tuning menu). Free: A, Y, RT, D-pad left/right.
 
 **Still estimates (marked "est." in Robot.java):** the intake's hinge and arm, the spinners' place (goBILDA
 72 mm Boot-Wheels, flush with the roller and low, from photos; the roller's tubing is soft in the simulator), the
 deploy servo's arm, the flywheel slide, the ramp, the shot angle. Measure the robot and replace them.
-**Still to find on the robot:** the deploy servo's positions (Servo Finder, `Tunables.IntakeDeploy`),
-how the Control Hub is mounted (`imu(...)` in Robot.java), the drive's numbers with the Drive Tuner
-(then `Tunables.Drive.calibrated = true`: until then the autonomous refuses to run), and every number
-marked "est." in Robot.java (measure the robot).
+**Still to find on the robot**, in this order:
+1. **R1 Hardware Check**: every device found, each motor and servo turns the right way.
+2. How the Control Hub is mounted (`imu(...)` in Robot.java: the way its logo and USB port face).
+3. The deploy servo's positions with **R1 Servo Finder** (`Tunables.IntakeDeploy`: `stowed`,
+   `deployed`), and how long its push takes (`travelSec`, now a 0.5 s guess).
+4. The flywheel's numbers with **R1 Flywheel Finder** (`Tunables.Launcher` kP..kF: today goBILDA's),
+   and the windmill's `feedSec` (0.3 s guess: watch it feed one piece).
+5. The wheel size with **R1 Drive Tuner**, then `Tunables.Drive.calibrated = true` (until then the
+   autonomous refuses to run).
+6. The real start spot in `autos/LaunchAndBackUp.java` (est.).
+7. Every number marked "est." or GUESS in Robot.java (measure the robot), then remake the simulator's
+   robot file (below).
+
+## Update the library
+
+The project uses ONE exact library version (the submodule). Update after an event, never the night
+before one. Read `ftc-helper-lib/CHANGELOG.md` first: each version says what (if anything) to change.
+
+```bash
+git -C ftc-helper-lib fetch --tags
+git -C ftc-helper-lib checkout v0.17.0        # the new version's tag
+./gradlew :TeamCode:assembleDebug             # build; fix what the CHANGELOG says
+```
+
+Then, from the `ftc-helper-lib` folder, remake the robot file and run the check (both below). Commit
+(`git add ftc-helper-lib TeamCode simulator readme.md`), install on the robot and test it there:
+the Robot Controller app must be built and installed again for the robot to get the new library.
+Teammates then run `git pull` and `git submodule update`.
 
 ## The simulator
 
