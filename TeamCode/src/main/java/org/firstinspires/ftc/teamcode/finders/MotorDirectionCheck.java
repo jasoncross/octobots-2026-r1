@@ -31,10 +31,7 @@ import com.crossbotics.ftchelper.hardware.MotorSetup;
 // "extends LinearOpMode" = an FTC program that runs from top to bottom.
 public class MotorDirectionCheck extends LinearOpMode {
 
-    // The drive settings to check. Return the SAME settings your TeleOp uses (with your motor
-    // names and "Reversed" choices), or this check tests something else.
-    // "static" = it belongs to the program itself, not to one running copy of it, so other
-    // files could call MotorDirectionCheck.config() too.
+    // The drive settings to check: the SAME ones the TeleOp uses (here: Robot.java's).
     static DriveConfig config() {
         return new Robot().robotConfig().drive();   // the same names and directions as Robot.java
     }
@@ -47,10 +44,8 @@ public class MotorDirectionCheck extends LinearOpMode {
         // Check the settings make sense (for example no missing motor name). If not, the program
         // stops here with a plain message on the Driver Station.
         cfg.validate();
-        // An array (a numbered list) of the four motors, in the library's usual order:
-        // [0] front-left, [1] front-right, [2] back-left, [3] back-right (docs/conventions.md).
-        // A two-motor tank drive has no back motors, so those two places hold null (= "none").
-        // "a ? b : c" means: if a is true use b, otherwise c.
+        // The four motors: front-left, front-right, back-left, back-right. A tank drive has no back
+        // motors, so those two are null ("none"). more: docs/conventions.md
         DcMotorEx[] motors = {
                 motor(cfg.frontLeft, cfg.frontLeftReversed),
                 motor(cfg.frontRight, cfg.frontRightReversed),
