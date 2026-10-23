@@ -3,7 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import static com.crossbotics.ftchelper.robot.Starting.*;
 
 /**
- * Robot 1, version 1 (file 2 of 5): the NUMBERS, one section per part.
+ * Robot 1, version 1 (file 2 of 5): the NUMBERS, one section per part. A section's name is the part's
+ * name in the robot configuration in CamelCase: "intake_deploy" reads IntakeDeploy.
  *
  * DEFAULT_FROM_CATALOG = "use the library's starting value" (the number in brackets in each comment).
  * Change one only when you see the problem it fixes. Every setting, what it does and when to change it:
@@ -15,7 +16,7 @@ import static com.crossbotics.ftchelper.robot.Starting.*;
  * the numbers and show the lines to copy here.
  */
 public class Tunables {
-    public static class Drive {
+    public static class Drive {                                        // a fixed name: always Drive
         public static double maxPower = DEFAULT_FROM_CATALOG;          // top wheel power at events, 0 to 1 (1.0)
         public static double practiceMaxPower = DEFAULT_FROM_CATALOG;  // top wheel power in PRACTICE (0.6)
         public static double slowSpeed = DEFAULT_FROM_CATALOG;         // top power with the slow trigger held (0.3)
@@ -26,20 +27,20 @@ public class Tunables {
         public static boolean calibrated = false;                      // set true after the Drive Tuner (auto needs it)
     }
 
-    public static class Intake {
+    public static class Intake {                                       // "intake" in the configuration
         public static double inPower = DEFAULT_FROM_CATALOG;           // power taking pieces in, 0 to 1 (1.0)
         public static double outPower = DEFAULT_FROM_CATALOG;          // power pushing pieces out (0.7)
     }
 
     /** TODO: find stowed and deployed with the Servo Finder before the first TeleOp. */
-    public static class IntakeDeploy {
+    public static class IntakeDeploy {                                 // "intake_deploy" in the configuration
         public static double stowed = DEFAULT_FROM_CATALOG;            // servo position, intake folded (0.0)
         public static double deployed = DEFAULT_FROM_CATALOG;          // servo position, intake pushed over (0.5)
         public static double travelSec = DEFAULT_FROM_CATALOG;         // time for a full move (from the servo's speed)
     }
 
     /** speedRpm, kP and kF are goBILDA's tested numbers for this robot (from their starter code). */
-    public static class Launcher {
+    public static class Launcher {                                     // "launcher" in the configuration
         public static double speedRpm = 2679;                          // shot speed (goBILDA: 1250 counts/s)
         public static double stepRpm = DEFAULT_FROM_CATALOG;           // speed change per D-pad press (100)
         public static double readyBandRpm = DEFAULT_FROM_CATALOG;      // "at speed" = this close to the target (60)
@@ -52,13 +53,13 @@ public class Tunables {
         public static boolean batteryCompensation = false;             // off until proven on a real robot
     }
 
-    public static class Windmill {
+    public static class Windmill {                                     // "windmill" in the configuration
         public static double power = DEFAULT_FROM_CATALOG;             // windmill power, 0 to 1 (1.0)
         public static double feedSec = DEFAULT_FROM_CATALOG;           // run time for one piece (0.4)
     }
 
     /** The autonomous "R1 Launch and Park" (autos/LaunchAndPark.java). These ARE the route: no defaults. */
-    public static class Auto {
+    public static class Auto {                                         // our own section: no part reads it
         public static double offWallInches = 4;                        // back off the wall before the turn
         public static double alongWallInches = 85.5;                   // along our wall to the LOADING ZONE
         public static double intoZoneInches = 12.6;                    // last move into the LOADING ZONE

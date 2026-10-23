@@ -46,6 +46,7 @@ public class Robot extends RobotDefinition {
         // The drive: goBILDA's 6-wheel drop-center chassis, one 312 RPM motor per side, 96 mm wheels
         // (Hogback; the 96 mm omni wheels at the intake end are the same size). The right motor runs
         // reversed (goBILDA's code). Wheel centres: 402 mm side to side, 288 mm front to back (CAD).
+        // "left_drive", "right_drive", "imu" = names in the robot configuration (Driver Station), exactly.
         drive(Drive.tank("left_drive", "right_drive")
                 .motor("gobilda-5203-312").wheel("gobilda-hogback-96")
                 .wheelsAtMm(402, 288)
@@ -64,6 +65,7 @@ public class Robot extends RobotDefinition {
         // on, with a note; at events a loud warning) and the intake is put down by hand before the match.
         // The deploy action then just starts the intake, and X does nothing. No code to change when the
         // servo is added: put it in the configuration and INIT again.
+        // "intake_deploy" = the servo's name in the robot configuration. Its numbers: Tunables.IntakeDeploy.
         intakeDeploy = add(Positioner.servo("intake_deploy").part("gobilda-2000-speed").optional()
                 .looks(Shape.arm().name("deploy_kicker").atMm(120, 130, 150).sizeMm(50, 15, 15)
                         .angle("stowed", 90).angle("deployed", 30).note("est.")));
@@ -77,6 +79,7 @@ public class Robot extends RobotDefinition {
         // every shape.
         // It carries up to four pieces (goBILDA's page). It starts running once it is deployed
         // (Actions.deployIntake), not before: B stops and starts it.
+        // "intake" = the motor's name in the robot configuration. Its numbers: Tunables.Intake.
         intake = add(Intake.motor("intake").part("gobilda-5203-117").holds(4)
                 .looks(Shape.arm().name("intake_arm").atMm(120, 0, 150).sizeMm(95, 240, 15)
                                 .range(-40, 95).startAt(95).dropsWhen(intakeDeploy, "deployed", -40).note("est."),
@@ -102,6 +105,7 @@ public class Robot extends RobotDefinition {
         // numbers), one 96 mm Hogback wheel. Fed by the "windmill" CR servo (Torque), reversed as in
         // goBILDA's code. The wheel's mount slides up about 20 mm (NECTAR 91 mm, POLLEN 71 mm). Shots
         // leave up the ramp out of the back: 147 degrees from forward (est., from goBILDA's hood angle).
+        // "launcher", "windmill" = names in the robot configuration. Numbers: Tunables.Launcher, .Windmill.
         launcher = add(Launcher.flywheel("launcher", "gobilda-5203-6000")
                 .feeder(Indexer.crServo("windmill").part("gobilda-2000-torque").reversed())
                 .spinAtStart()   // at speed from START, ready for the first shot (LB lets it coast)
