@@ -6,7 +6,7 @@ import static com.crossbotics.ftchelper.robot.Starting.*;
  * Robot 1, version 1 (file 2 of 5): the NUMBERS, one section per part. A section's name is the part's
  * name in the robot configuration in CamelCase: "intake_deploy" reads IntakeDeploy.
  *
- * DEFAULT_FROM_CATALOG = "use the library's starting value" (the number in brackets in each comment).
+ * DEFAULT = "use the library's starting value" (the number in brackets in each comment).
  * Change one only when you see the problem it fixes. Every setting, what it does and when to change it:
  * https://crossbotics.com/ftc-helper/docs/guides/tunables/ (start with "Find a setting by what you want").
  *
@@ -17,45 +17,45 @@ import static com.crossbotics.ftchelper.robot.Starting.*;
  */
 public class Tunables {
     public static class Drive {                                        // a fixed name: always Drive
-        public static double maxPower = DEFAULT_FROM_CATALOG;          // top wheel power at events, 0 to 1 (1.0)
-        public static double practiceMaxPower = DEFAULT_FROM_CATALOG;  // top wheel power in PRACTICE (0.6)
-        public static double slowSpeed = DEFAULT_FROM_CATALOG;         // top power with the slow trigger held (0.3)
-        public static double strafeCorrection = DEFAULT_FROM_CATALOG;  // not used: a tank drive cannot strafe
-        public static double turnKp = DEFAULT_FROM_CATALOG;            // auto turns: push per degree off (0.012)
-        public static double turnKd = DEFAULT_FROM_CATALOG;            // auto turns: brake near the end (0.003)
-        public static double moveMinPower = DEFAULT_FROM_CATALOG;      // auto: least power that moves it (0.30)
+        public static double maxPower = DEFAULT;                       // top wheel power at events, 0 to 1 (1.0)
+        public static double practiceMaxPower = DEFAULT;               // top wheel power in PRACTICE (0.6)
+        public static double slowSpeed = DEFAULT;                      // top power with the slow trigger held (0.3)
+        public static double strafeCorrection = DEFAULT;               // not used: a tank drive cannot strafe
+        public static double turnKp = DEFAULT;                         // auto turns: push per degree off (0.012)
+        public static double turnKd = DEFAULT;                         // auto turns: brake near the end (0.003)
+        public static double moveMinPower = DEFAULT;                   // auto: least power that moves it (0.30)
         public static boolean calibrated = false;                      // set true after the Drive Tuner (auto needs it)
     }
 
     public static class Intake {                                       // "intake" in the configuration
-        public static double inPower = DEFAULT_FROM_CATALOG;           // power taking pieces in, 0 to 1 (1.0)
-        public static double outPower = DEFAULT_FROM_CATALOG;          // power pushing pieces out (0.7)
+        public static double inPower = DEFAULT;                        // power taking pieces in, 0 to 1 (1.0)
+        public static double outPower = DEFAULT;                       // power pushing pieces out (0.7)
     }
 
     /** TODO: find stowed and deployed with the Servo Finder before the first TeleOp. */
     public static class IntakeDeploy {                                 // "intake_deploy" in the configuration
-        public static double stowed = DEFAULT_FROM_CATALOG;            // servo position, intake folded (0.0)
-        public static double deployed = DEFAULT_FROM_CATALOG;          // servo position, intake pushed over (0.5)
-        public static double travelSec = DEFAULT_FROM_CATALOG;         // time for a full move (from the servo's speed)
+        public static double stowed = DEFAULT;                         // servo position, intake folded (0.0)
+        public static double deployed = DEFAULT;                       // servo position, intake pushed over (0.5)
+        public static double travelSec = DEFAULT;                      // time for a full move (from the servo's speed)
     }
 
     /** speedRpm, kP and kF are goBILDA's tested numbers for this robot (from their starter code). */
     public static class Launcher {                                     // "launcher" in the configuration
         public static double speedRpm = 2679;                          // shot speed (goBILDA: 1250 counts/s)
-        public static double stepRpm = DEFAULT_FROM_CATALOG;           // speed change per D-pad press (100)
-        public static double readyBandRpm = DEFAULT_FROM_CATALOG;      // "at speed" = this close to the target (60)
-        public static double idleRpm = DEFAULT_FROM_CATALOG;           // speed between shots, 0 = stop (0)
-        public static double shotIntervalSec = DEFAULT_FROM_CATALOG;   // least time between two shots (0.25)
+        public static double stepRpm = DEFAULT;                        // speed change per D-pad press (100)
+        public static double readyBandRpm = DEFAULT;                   // "at speed" = this close to the target (60)
+        public static double idleRpm = DEFAULT;                        // speed between shots, 0 = stop (0)
+        public static double shotIntervalSec = DEFAULT;                // least time between two shots (0.25)
         public static double kP = 40;                                  // speed control: push per speed error (goBILDA)
         public static double kI = 0, kD = 0;                           // speed control: not used (goBILDA)
         public static double kF = 12.5;                                // speed control: steady power (goBILDA)
-        public static double nominalVolts = DEFAULT_FROM_CATALOG;      // battery volts kF was found at (12.8)
+        public static double nominalVolts = DEFAULT;                   // battery volts kF was found at (12.8)
         public static boolean batteryCompensation = false;             // off until proven on a real robot
     }
 
     public static class Windmill {                                     // "windmill" in the configuration
-        public static double power = DEFAULT_FROM_CATALOG;             // windmill power, 0 to 1 (1.0)
-        public static double feedSec = DEFAULT_FROM_CATALOG;           // run time for one piece (0.4)
+        public static double power = DEFAULT;                          // windmill power, 0 to 1 (1.0)
+        public static double feedSec = DEFAULT;                        // run time for one piece (0.4)
     }
 
     /** The autonomous "R1 Launch and Park" (autos/LaunchAndPark.java). These ARE the route: no defaults. */
