@@ -2,7 +2,8 @@
 
 The code for Indianola Robotics' (FTC team 8938) first robot of the BIOBUZZ season. It is the FTC SDK
 (FtcRobotController 12.0) with our helper library, [ftc-helper-lib](https://github.com/crossbotics/ftc-helper-lib),
-in the `ftc-helper-lib` folder (a git submodule). **Library version: v0.17.0** (`git submodule status` shows it; until the tag exists, library `main` at 4e43f17).
+in the `ftc-helper-lib` folder (a git submodule). **Library version: v0.18.1** (`git submodule status`
+shows it). The team's step-by-step pages (https://crossbotics.com/teams/8938-octobots/) match this version.
 
 ## Get it
 
@@ -38,8 +39,8 @@ How: `ftc-helper-lib/docs/guides/finders.md`.
 
 goBILDA's BIOBUZZ starter bot (3200-2627-0003) with our changes: an intake that folds up at the start
 and is pushed over by a servo at START (then gravity holds it on a hard stop), Offset surgical tubing
-rollers (90 mm and 60 mm taking turns), two 90 mm tubing spinners at the front corners driven from the
-intake through miter gears, a flywheel on a sliding mount (so a NECTAR fits), and a ramp that sends
+rollers (90 mm and 60 mm taking turns), two goBILDA 72 mm Boot-Wheel spinners at the front corners driven
+from the intake through miter gears, a flywheel on a sliding mount (so a NECTAR fits), and a ramp that sends
 shots out of the back. Device names are goBILDA's (`left_drive`, `right_drive`, `intake`, `launcher`,
 `windmill`) plus `intake_deploy` (the deploy servo).
 
@@ -49,6 +50,8 @@ double-tap B pushes out until the next tap (the intake starts by itself once it 
 flywheel on/off (it spins up at START), **RB** fires one (hold to keep firing), D-pad up/down flywheel
 speed. **X** deploys the intake again. **BACK** pauses everything (again: go on). **GUIDE** shows this
 map (hold GUIDE 1 s after START, PRACTICE profile: the tuning menu). Free: A, Y, RT, D-pad left/right.
+**Four pieces at most** (rule G407): nothing in the code stops the intake at 4 (`holds(4)` only tells
+the simulator), so the driver taps **B** (intake off) when the robot is full.
 
 **Still estimates (marked "est." in Robot.java):** the intake's hinge and arm, the spinners' place (goBILDA
 72 mm Boot-Wheels, flush with the roller and low, from photos; the roller's tubing is soft in the simulator), the
@@ -58,9 +61,10 @@ deploy servo's arm, the flywheel slide, the ramp, the shot angle. Measure the ro
    **R1 Motor Direction Check** (robot on a block): each drive wheel rolls forward.
 2. How the Control Hub is mounted (`imu(...)` in Robot.java: the way its logo and USB port face).
 3. The deploy servo's positions with **R1 Servo Finder** (`Tunables.IntakeDeploy`: `stowed`,
-   `deployed`), and how long its push takes (`travelSec`, now a 0.5 s guess).
+   `deployed`). `travelSec` is the time for a full 0-to-1 move (now from the servo's catalog speed):
+   keep it, or time the push and divide by `deployed - stowed`.
 4. The flywheel's numbers with **R1 Flywheel Finder** (`Tunables.Launcher` kP..kF: today goBILDA's),
-   and the windmill's `feedSec` (0.3 s guess: watch it feed one piece).
+   and the windmill's `feedSec` (the library's 0.4 s for now: watch it feed one piece, never two).
 5. The wheel size with **R1 Drive Tuner**, then `Tunables.Drive.calibrated = true` (until then the
    autonomous refuses to run).
 6. The shot: its real launch angle and speed (see "The autonomous" below), then the start spot.
@@ -117,17 +121,22 @@ the robot file's shot: 0 of 4 in the CELL, red 22-23 points. With a 65 or 70 deg
 
 ## Update the library
 
-The project uses ONE exact library version (the submodule). Update after an event, never the night
-before one. Read `ftc-helper-lib/CHANGELOG.md` first: each version says what (if anything) to change.
+The project uses ONE exact library version (the submodule). The library has a release about once a
+week; we update after an event or in a calm week, never the week before an event. The docs on
+crossbotics.com follow the newest release (docs fixes go live between releases), so they can be a
+little ahead of our version: `git submodule status` says which one we have, and `ftc-helper-lib/docs`
+is the copy for it. Read the new version's notes first (its GitHub release, or the CHANGELOG): each
+version says what (if anything) to change. Step by step: the team pages' Part D, "Keep the library up
+to date".
 
 ```bash
 git -C ftc-helper-lib fetch --tags
-git -C ftc-helper-lib checkout v0.17.0        # the new version's tag
+git -C ftc-helper-lib checkout v0.18.2        # the new version's tag (an example)
 ./gradlew :TeamCode:assembleDebug             # build; fix what the CHANGELOG says
 ```
 
 Then, from the `ftc-helper-lib` folder, remake the robot file and run the check (both below). Commit
-(`git add ftc-helper-lib TeamCode simulator readme.md`), install on the robot and test it there:
+(`git add ftc-helper-lib TeamCode simulator README.md`), install on the robot and test it there:
 the Robot Controller app must be built and installed again for the robot to get the new library.
 Teammates then run `git pull` and `git submodule update`.
 
@@ -167,5 +176,5 @@ to the robot file.
 Drive it in a browser (then open http://localhost:8780 and pick "R1 TeleOp"):
 
 ```bash
-./gradlew :sim:run -Probot=../simulator/robot.properties
+./gradlew :sim:run -PteamCode=../TeamCode
 ```

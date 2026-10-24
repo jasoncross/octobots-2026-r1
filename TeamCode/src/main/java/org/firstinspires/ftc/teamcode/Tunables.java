@@ -36,7 +36,7 @@ public class Tunables {
     public static class IntakeDeploy {                                 // "intake_deploy" in the configuration
         public static double stowed = DEFAULT;                         // servo position, intake folded (0.0)
         public static double deployed = DEFAULT;                       // servo position, intake pushed over (0.5)
-        public static double travelSec = DEFAULT;                      // time for a full move (from the servo's speed)
+        public static double travelSec = DEFAULT;                      // time for a full 0-to-1 move (from the servo's speed)
     }
 
     /** speedRpm, kP and kF are goBILDA's tested numbers for this robot (from their starter code). */
@@ -47,7 +47,8 @@ public class Tunables {
         public static double idleRpm = DEFAULT;                        // speed between shots, 0 = stop (0)
         public static double shotIntervalSec = DEFAULT;                // least time between two shots (0.25)
         public static double kP = 40;                                  // speed control: push per speed error (goBILDA)
-        public static double kI = 0, kD = 0;                           // speed control: not used (goBILDA)
+        public static double kI = 0;                                   // speed control: not used (goBILDA)
+        public static double kD = 0;                                   // speed control: not used (goBILDA)
         public static double kF = 12.5;                                // speed control: steady power (goBILDA)
         public static double nominalVolts = DEFAULT;                   // battery volts kF was found at (12.8)
         public static boolean batteryCompensation = false;             // off until proven on a real robot

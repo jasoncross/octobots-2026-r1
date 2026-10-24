@@ -48,12 +48,12 @@ public class Robot extends RobotDefinition {
                         .angle("stowed", 90).angle("deployed", 30).note("est.")));
 
         // The intake: a 117 RPM motor. Its arm folds up (95 degrees) and falls onto its stop (-40).
-        // It has four shapes, so each one gets a name first; then looks(...) lists them.
+        // It has four shapes: each goes in a Java variable first; then looks(...) lists them.
         Shape intakeArm = Shape.arm().name("intake_arm").atMm(120, 0, 150).sizeMm(95, 240, 15)
                 .range(-40, 95).startAt(95).dropsWhen(intakeDeploy, "deployed", -40).note("est.");
         // The main roller: soft tubing rollers, 90 and 60 mm, on a 240 mm shaft.
-        Shape roller = Shape.roller("offset-tubing-90", "offset-tubing-60").on("intake_arm").atMm(88, 0, 0)
-                .lengthMm(240).soft().note("est.");
+        Shape roller = Shape.roller("offset-tubing-90", "offset-tubing-60").name("roller").on("intake_arm")
+                .atMm(88, 0, 0).lengthMm(240).soft().note("est.");
         // The spinners: 72 mm Boot-Wheels lying flat at the front corners, turned by the intake shaft.
         Shape leftSpinner = Shape.roller("gobilda-boot-72-rex").name("left_spinner").on("intake_arm")
                 .atMm(139, 156, -47).axis("up").tiltDeg(40).lengthMm(25).reversed().note("est.");
@@ -79,7 +79,7 @@ public class Robot extends RobotDefinition {
         fixed(Shape.box("tower").atMm(-88, 0, 40).sizeMm(48, 184, 264),
               Shape.box("ramp").atMm(-180, 0, 200).sizeMm(120, 150, 10).note("est."));
 
-        // Right after START (never in INIT: nothing may move before START), push the intake over.
+        // Right after START, push the intake over (the library moves nothing in INIT: its safety choice).
         atStart(() -> deployAtStart ? Actions.deployIntake(this)
                 : Action.named("Intake stays folded (the autonomous deploys it)"));
     }
