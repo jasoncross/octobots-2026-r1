@@ -5,13 +5,10 @@
 # How many shots score depends on the shot angle and speed in the robot file (estimates until measured):
 # with the robot file's 147 degrees (33 up) no shot can reach an up CELL from anywhere, so this file
 # checks that all four are FIRED and prints the verdicts and the score; it does not demand CELL points.
-# Run it (from the ftc-helper-lib folder):  ./gradlew :sim:scenario -Pfile=../simulator/scenarios/r1-auto.sim
+# Run it: the "Simulator tests" button in Android Studio (all tests), or from the ftc-helper-lib folder:
+#   ./gradlew :sim:scenario -Pfile=../simulator/scenarios/r1-auto.sim
 robot ../robot.properties
 set scatter realistic
-# The deploy servo's positions are MEASURE in Tunables.java until the Servo Finder gives ours:
-# these stand in for them in this test only (the library's old guesses).
-set tunable IntakeDeploy.stowed 0.0
-set tunable IntakeDeploy.deployed 0.5
 init "R1 Launch and Park"
 press g1.b                                 # RED
 wait 0.5                                   # the robot is placed on the chosen side

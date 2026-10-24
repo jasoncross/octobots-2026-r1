@@ -142,12 +142,13 @@ Teammates then run `git pull` and `git submodule update`.
 
 ## The simulator
 
-`simulator/robot.properties` is made from Robot.java. After changing Robot.java, from the
-`ftc-helper-lib` folder:
+**The easy way, in Android Studio:** pick **Simulator** or **Simulator tests** in the list next to the
+green Run button, then click Run. **Simulator** opens the simulator: go to http://localhost:8780 and pick
+"R1 TeleOp". **Simulator tests** runs all three tests below. The red Stop button stops it.
 
-```bash
-./gradlew :sim:fromRobot -PteamCode=../TeamCode
-```
+`simulator/robot.properties` is made again from Robot.java each time the simulator starts. The numbers
+that are still MEASURE in Tunables.java get stand-ins there (simulator only: the real robot still stops
+at INIT). The same from the Terminal, in the `ftc-helper-lib` folder:
 
 Check it (size rules, the intake drops at START, picks up a POLLEN, fires it):
 
