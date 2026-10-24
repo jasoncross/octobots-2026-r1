@@ -15,8 +15,8 @@ import com.crossbotics.ftchelper.robot.Shape;
  * Robot 1, version 1 (file 1 of 5): WHAT is on the robot. goBILDA's BIOBUZZ starter bot (3200-2627-0003)
  * with our changes: a folding intake that a servo pushes over at START, tubing rollers, two corner
  * spinners, and a sliding flywheel mount. Shots leave up a ramp out of the BACK.
- * Sizes and places in mm: forward, left, up from the middle of the chassis on the tiles. "est." = an
- * estimate from goBILDA's CAD: measure ours. More: https://crossbotics.com/teams/8938-octobots/build/
+ * Sizes and places in mm: forward, left, up from the chassis middle on the tiles, or from the shape it rides on.
+ * "est." = an estimate (CAD or photos): measure ours. More: https://crossbotics.com/teams/8938-octobots/build/
  */
 public class Robot extends RobotDefinition {
     public Positioner intakeDeploy;
