@@ -143,7 +143,8 @@ Teammates then run `git pull` and `git submodule update`.
 ## The simulator
 
 **The easy way, in Android Studio:** pick **Simulator** or **Simulator tests** in the list next to the
-green Run button, then click Run. **Simulator** opens the simulator: go to http://localhost:8780 and pick
+green Run button, then click Run. (Not in the list? The library adds them at the first Gradle sync:
+close the project and open it again.) **Simulator** opens the simulator: go to http://localhost:8780 and pick
 "R1 TeleOp". **Simulator tests** runs all three tests below. The red Stop button stops it.
 
 `simulator/robot.properties` is made again from Robot.java each time the simulator starts. The numbers
