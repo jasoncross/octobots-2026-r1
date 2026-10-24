@@ -7,9 +7,7 @@ public class Actions {
 
     /**
      * Pushes the folded intake over, then starts the intake and moves the servo back out of the way.
-     * The intake stays down by gravity (nothing holds it). With no deploy servo in the configuration
-     * (optional() in Robot.java) the servo steps and their wait are skipped: the intake was put down by
-     * hand, and this just starts it.
+     * The intake stays down by gravity (nothing holds it).
      */
     public static Action deployIntake(Robot r) {
         return Action.named("Deploy intake")
