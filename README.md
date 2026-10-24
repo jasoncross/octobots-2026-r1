@@ -145,7 +145,7 @@ Teammates then run `git pull` and `git submodule update`.
 **The easy way, in Android Studio:** pick **Simulator** or **Simulator tests** in the list next to the
 green Run button, then click Run. (Not in the list? The library adds them at the first Gradle sync:
 close the project and open it again.) **Simulator** opens the simulator: go to http://localhost:8780 and pick
-"R1 TeleOp". **Simulator tests** runs all three tests below. The red Stop button stops it.
+"R1 TeleOp". **Simulator tests** runs all the tests below. The red Stop button stops it.
 
 `simulator/robot.properties` is made again from Robot.java each time the simulator starts. The numbers
 that are still MEASURE in Tunables.java get stand-ins there (simulator only: the real robot still stops
@@ -174,6 +174,10 @@ to the robot file.
 ```bash
 ./gradlew :sim:scenario -Pfile=../simulator/scenarios/r1-no-deploy-servo.sim
 ```
+
+No windmill on the robot? It is `optional()` too: leave `windmill` out of the robot configuration. INIT
+says the feeder is off, the flywheel still spins, and the intake pushes the pieces up the scoop into the
+wheel (RB feeds nothing). `r1-no-windmill.sim` checks this (`set device windmill missing`).
 
 Drive it in a browser (then open http://localhost:8780 and pick "R1 TeleOp"):
 

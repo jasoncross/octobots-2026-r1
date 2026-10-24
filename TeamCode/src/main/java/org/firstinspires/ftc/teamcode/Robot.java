@@ -63,14 +63,15 @@ public class Robot extends RobotDefinition {
         intake = add(Intake.motor("intake").part("gobilda-5203-117").holds(4)
                 .looks(intakeArm, roller, leftSpinner, rightSpinner));
 
-        // The launcher: one 96 mm wheel, fed by the "windmill" CR servo. Shots leave up the back ramp.
+        // The launcher: one 96 mm wheel. Shots leave up the back ramp. The "windmill" CR servo feeds it;
+        // optional(): v1 may run without it (the intake pushes pieces up the scoop into the wheel).
         // Two shapes: its sliding mount (a NECTAR fits too) and the wheel riding on it.
         // "launcher", "windmill" = names in the robot configuration. Numbers: Tunables.Launcher, .Windmill.
         Shape launcherSlide = Shape.slide().name("launcher_slide").atMm(-40, -5, 120).sizeMm(30, 30, 48)
                 .passive().travelMm(20).note("est.");
         Shape flywheel = Shape.flywheel("gobilda-hogback-96").on("launcher_slide").atMm(0, 0, 48);
         launcher = add(Launcher.flywheel("launcher", "gobilda-5203-6000")
-                .feeder(Indexer.crServo("windmill").part("gobilda-2000-torque").reversed())
+                .feeder(Indexer.crServo("windmill").part("gobilda-2000-torque").reversed().optional())
                 .spinAtStart()   // at speed from START, ready for the first shot (LB lets it coast)
                 .looks(launcherSlide, flywheel)
                 .shotAngle(147));
