@@ -6,7 +6,8 @@ import static com.crossbotics.ftchelper.robot.Starting.*;
  * Robot 1, version 1 (file 2 of 5): the NUMBERS, one section per part. A section's name is the part's
  * name in the robot configuration in CamelCase: "intake_deploy" reads IntakeDeploy.
  *
- * DEFAULT = "use the library's starting value" (the number in brackets in each comment).
+ * DEFAULT = "use the library's starting value" (the number in brackets in each comment). MEASURE =
+ * "a number only our robot can give": INIT stops until we write it.
  * Change one only when you see the problem it fixes. Every setting, what it does and when to change it:
  * https://crossbotics.com/ftc-helper/docs/guides/tunables/ (start with "Find a setting by what you want").
  *
@@ -32,10 +33,10 @@ public class Tunables {
         public static double outPower = DEFAULT;                       // power pushing pieces out (0.7)
     }
 
-    /** TODO: find stowed and deployed with the Servo Finder before the first TeleOp. */
+    /** MEASURE: INIT stops until the Servo Finder gives these two numbers (a guess could break the servo). */
     public static class IntakeDeploy {                                 // "intake_deploy" in the configuration
-        public static double stowed = DEFAULT;                         // servo position, intake folded (0.0)
-        public static double deployed = DEFAULT;                       // servo position, intake pushed over (0.5)
+        public static double stowed = MEASURE;                         // intake folded (Servo Finder)
+        public static double deployed = MEASURE;                       // intake pushed over (Servo Finder)
         public static double travelSec = DEFAULT;                      // time for a full 0-to-1 move (from the servo's speed)
     }
 
