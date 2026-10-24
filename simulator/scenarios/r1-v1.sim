@@ -1,5 +1,5 @@
 # Robot 1 v1: it fits the size rules, the intake drops at START and stays down, the intake and the
-# launcher answer the buttons (B, RB), and a held piece is fired.
+# launcher answer the buttons (B, RB, LB), and a held piece is fired.
 # Run it (from the ftc-helper-lib folder):  ./gradlew :sim:scenario -Pfile=../simulator/scenarios/r1-v1.sim
 robot ../robot.properties
 # The deploy servo's positions are MEASURE in Tunables.java until the Servo Finder gives ours:
@@ -26,10 +26,15 @@ expect within 3 stored >= 1
 release all
 press g1.b                             # B: intake off
 expect within 1 motor intake power = 0 0.01
-press g1.left_bumper                   # spin the flywheel up
-expect within 4 motor launcher velocity > 1100
-press g1.right_bumper                  # fire one
+expect within 4 motor launcher velocity > 1100   # spins from START
+press g1.right_bumper                  # RB: fire one
 expect within 3 launched >= 1
+press g1.left_bumper                   # LB: flywheel off (it coasts down)
+expect within 1 screen has "Launcher : IDLE"
+expect within 2 motor launcher velocity < 900   # slowing down
+press g1.left_bumper                   # LB again: spin it up
+expect within 1 screen has "Launcher : SPINNING"
+expect within 4 motor launcher velocity > 1100
 print size
 stop
 expect error none
