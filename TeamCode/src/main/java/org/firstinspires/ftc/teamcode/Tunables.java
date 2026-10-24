@@ -37,7 +37,7 @@ public class Tunables {
     public static class IntakeDeploy {                                 // "intake_deploy" in the configuration
         public static double stowed = MEASURE;                         // intake folded (Servo Finder)
         public static double deployed = MEASURE;                       // intake pushed over (Servo Finder)
-        public static double travelSec = DEFAULT;                      // time for a full 0-to-1 move (from the servo's speed)
+        public static double travelSec = DEFAULT;                      // a full 0-to-1 move, seconds (servo's speed)
     }
 
     /** speedRpm, kP and kF are goBILDA's tested numbers for this robot (from their starter code). */
