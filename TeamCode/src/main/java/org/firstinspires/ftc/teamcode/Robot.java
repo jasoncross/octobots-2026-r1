@@ -78,7 +78,7 @@ public class Robot extends RobotDefinition {
 
         // Parts that do not move: goBILDA's tower behind the launcher, and our ramp out of the back.
         fixed(Shape.box("tower").atMm(-88, 0, 40).sizeMm(48, 184, 264),
-              Shape.box("ramp").atMm(-180, 0, 200).sizeMm(120, 150, 10).note("est."));
+              Shape.box("ramp").atMm(-180, 0, 200).sizeMm(120, 150, 10).tiltDeg(-33).note("est."));   // up toward the back, like the shots (147° = 33° up, backward)
 
         // Right after START, push the intake over (the library moves nothing in INIT: its safety choice).
         atStart(() -> deployAtStart ? Actions.deployIntake(this)
