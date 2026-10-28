@@ -19,7 +19,7 @@ expect within 3 stored >= 1
 release all
 press g1.b                             # B: intake off
 expect within 1 motor intake power = 0 0.01
-expect within 4 motor launcher velocity > 1100   # spins from START
+expect within 4 motor launcher velocity > 1000   # spins from START
 press g1.right_bumper                  # RB: fire one
 expect within 3 launched >= 1
 expect size match ok                   # 18 x 24 x 29 in during the match

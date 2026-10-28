@@ -9,7 +9,7 @@ init "R1 TeleOp"
 expect error none                      # no "No CRServo named windmill" at INIT
 expect screen has "not in the configuration"   # INIT says the feeder is off
 start
-expect within 4 motor launcher velocity > 1100   # the flywheel spins from START
+expect within 4 motor launcher velocity > 1000   # the flywheel spins from START
 expect within 1 motor intake power > 0.9          # the intake runs
 press g1.right_bumper                  # RB: fire: no feeder, so nothing is fed
 wait 1

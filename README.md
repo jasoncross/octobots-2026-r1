@@ -95,8 +95,8 @@ band right of centre; this spot is the best one that keeps 4.5 in from the GARDE
 **Important:** the built ramp is 53 degrees up from the floor (measured 2026-10-27), and from this spot
 that misses. The robot file now uses **65 degrees** (the plan for the ramp; mentor, 2026-10-27), so the
 shot is 115 degrees. At 65 degrees the speed matters: the simulator's exit speed is half the wheel's rim
-speed, so 2679 RPM is about 265 in/s and misses. About 2275 RPM (225 in/s) scored 4 of 4, 3 runs (a test
-copy of Tunables). Find the real speed on the robot once the ramp is 65 degrees.
+speed, so goBILDA's 2679 RPM is about 265 in/s and misses. `Tunables.Launcher.speedRpm` is now **2275 RPM**
+(225 in/s), which scores 4 of 4. Find the real speed on the robot once the ramp is 65 degrees.
 
 **Route** (tank: turns, forward and back only; numbers in `Tunables.Auto`): back 4 in off the wall,
 fire all four (the intake stays folded until now: at START it would fall onto the wall, so the auto
@@ -108,8 +108,8 @@ time for the park steps if firing is slow.
 **Check it** (from the `ftc-helper-lib` folder): `./gradlew :sim:scenario -Pfile=../simulator/scenarios/r1-auto.sim`.
 It checks the start spot, four fired, the intake pushed over off the wall, no bumps, the end pose
 (at least 2 in from the wall, in the zone), under 25 s, and prints the shot verdicts and points. With
-the robot file's 65 degree shot at 2679 RPM: 0 of 4 in the CELL (too fast), red 23 points. At 2275 RPM (225 in/s,
-a test copy of Tunables): 4 of 4 clean, 3 runs, the HIVE tips (+20), red 37. (53 degrees: 0 of 4 at 2679 RPM.)
+the robot file's 65 degree shot at 2275 RPM: 4 of 4 clean, the HIVE tips (+20), red 37. (At 2679 RPM: 0 of 4,
+too fast. At 53 degrees: 0 of 4.)
 
 **Measure on the robot before trusting it:**
 1. The shot: film a shot from the side next to a tape measure. Launch angle (degrees up from the

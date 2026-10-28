@@ -42,7 +42,7 @@ public class Tunables {
 
     /** speedRpm, kP and kF are goBILDA's tested numbers for this robot (from their starter code). */
     public static class Launcher {                                     // "launcher" in the configuration
-        public static double speedRpm = 2679;                          // shot speed (goBILDA: 1250 counts/s)
+        public static double speedRpm = 2275;                          // shot speed: 225 in/s at 65° in the simulator (goBILDA had 2679)
         public static double stepRpm = DEFAULT;                        // speed change per D-pad press (100)
         public static double readyBandRpm = DEFAULT;                   // "at speed" = this close to the target (60)
         public static double idleRpm = DEFAULT;                        // speed between shots, 0 = stop (0)
