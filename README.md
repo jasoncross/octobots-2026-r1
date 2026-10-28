@@ -92,9 +92,10 @@ band right of centre; this spot is the best one that keeps 4.5 in from the GARDE
 | 65 degrees up | 8 % | 96 % | 90 % | 5 % |
 | 60 or 55 degrees up | 0 | 0 | 0 | 0 |
 
-**Important:** the robot file's shot is 147 degrees (33 up, goBILDA's hood), and with that no shot
-reaches an up CELL from anywhere on the field (it peaks at 34 in; the CELL's opening is 53-65 in up).
-So the real ramp must launch steeper, or the shots will not score. Measure it (below).
+**Important:** the ramp is 53 degrees up from the floor (measured 2026-10-27), so the robot file's shot
+is 127 degrees. From this spot that misses: the table above has 0 % at 55 and 60 degrees, and the check
+below fires 0 of 4 into the CELL at 2679 RPM. Before it scores, the shot needs another spot or speed (to
+find in the simulator), or a steeper ramp.
 
 **Route** (tank: turns, forward and back only; numbers in `Tunables.Auto`): back 4 in off the wall,
 fire all four (the intake stays folded until now: at START it would fall onto the wall, so the auto
@@ -106,7 +107,7 @@ time for the park steps if firing is slow.
 **Check it** (from the `ftc-helper-lib` folder): `./gradlew :sim:scenario -Pfile=../simulator/scenarios/r1-auto.sim`.
 It checks the start spot, four fired, the intake pushed over off the wall, no bumps, the end pose
 (at least 2 in from the wall, in the zone), under 25 s, and prints the shot verdicts and points. With
-the robot file's shot: 0 of 4 in the CELL, red 22-23 points. With a 65 or 70 degree shot at 225 in/s
+the robot file's 53 degree shot: 0 of 4 in the CELL (all miss), red 23 points. With a 65 or 70 degree shot at 225 in/s
 (a test copy of the robot file): 4 of 4 clean, 5 runs each, the HIVE tips (+20), red 37-38.
 
 **Measure on the robot before trusting it:**
