@@ -39,7 +39,7 @@ public class LaunchAndPark extends Auto<Robot> {
         robot.deployAtStart = false;   // the front is on the wall: the intake is pushed over later (below)
         s.start("Nose corner on wall 20.5in from R, back at HIVE", START_X, START_Y, START_HEADING)
          .move("Off the wall", Tunables.Auto.offWallInches, 180, Tunables.Auto.slowPower)
-         .action(Actions.fireAll(robot), 12)
+         .action(robot.launcher.fireAllAction(), 12)   // the library's: fires all 4 (Robot.java holds(4))
          .parkWithSeconds(Tunables.Auto.parkSeconds)
          .turnTo("Along our wall", turnToField(ALONG_WALL_HEADING), Tunables.Auto.turnPower)
          .action(Actions.deployIntake(robot), 3)

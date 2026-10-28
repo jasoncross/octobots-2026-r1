@@ -2,7 +2,7 @@
 
 The code for Indianola Robotics' (FTC team 8938) first robot of the BIOBUZZ season. It is the FTC SDK
 (FtcRobotController 12.0) with our helper library, [ftc-helper-lib](https://github.com/crossbotics/ftc-helper-lib),
-in the `ftc-helper-lib` folder (a git submodule). **Library version: v0.20.1** (`git submodule status`
+in the `ftc-helper-lib` folder (a git submodule). **Library version: v0.20.2** (`git submodule status`
 shows it). The team's step-by-step pages (https://crossbotics.com/teams/8938-octobots/) match this version.
 
 ## Get it
@@ -22,14 +22,16 @@ All in `TeamCode/src/main/java/org/firstinspires/ftc/teamcode/`:
 | `Robot.java` | what is on the robot: each part's name in the robot configuration, its catalog part, how it looks and where it sits |
 | `Tunables.java` | every number, one section per part |
 | `Controls.java` | the buttons, and the TeleOp ("R1 TeleOp") |
-| `Actions.java` | steps that use several parts (deploy the intake, fire all) |
+| `Actions.java` | steps that use several parts (deploy the intake); firing all is the library's `robot.launcher.fireAllAction()` |
 | `autos/` | the autonomous: **R1 Launch and Park** (below) |
 
 How the library works: `ftc-helper-lib/docs/modules/robot.md`; short "how do I...?" answers:
 `ftc-helper-lib/docs/cookbook.md`.
 
-**The finders** (`finders/`, the "Finders" group on the Driver Station) measure the numbers and show the
-lines to copy into `Tunables.java` or `Robot.java`: **R1 Hardware Check** (every device found, each motor
+**Tune and check** (the library's own OpMode, "Finders" group on the Driver Station) has every check and
+finder for this robot in one menu: D-pad to pick, A to open, START to run. **The finders** (`finders/`, the
+same group) are the same tools one file each. They measure the numbers and show the lines to copy into
+`Tunables.java` or `Robot.java`: **R1 Hardware Check** (every device found, each motor
 turns the right way), **R1 Motor Direction Check** (wheels off the ground: X = left, Y = right, each
 wheel must roll forward), **R1 Servo Finder** (the deploy servo's positions), **R1 Flywheel Finder** (the
 launcher's kP..kF), **R1 Drive Tuner** (the wheel size, for the autonomous).
@@ -133,7 +135,7 @@ to date".
 
 ```bash
 git -C ftc-helper-lib fetch --tags
-git -C ftc-helper-lib checkout v0.20.1        # the new version's tag (an example)
+git -C ftc-helper-lib checkout v0.20.2        # the new version's tag (an example)
 ./gradlew :TeamCode:assembleDebug             # build; fix what the CHANGELOG says
 ```
 
