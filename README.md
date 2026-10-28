@@ -92,10 +92,11 @@ band right of centre; this spot is the best one that keeps 4.5 in from the GARDE
 | 65 degrees up | 8 % | 96 % | 90 % | 5 % |
 | 60 or 55 degrees up | 0 | 0 | 0 | 0 |
 
-**Important:** the ramp is 53 degrees up from the floor (measured 2026-10-27), so the robot file's shot
-is 127 degrees. From this spot that misses: the table above has 0 % at 55 and 60 degrees, and the check
-below fires 0 of 4 into the CELL at 2679 RPM. Before it scores, the shot needs another spot or speed (to
-find in the simulator), or a steeper ramp.
+**Important:** the built ramp is 53 degrees up from the floor (measured 2026-10-27), and from this spot
+that misses. The robot file now uses **65 degrees** (the plan for the ramp; mentor, 2026-10-27), so the
+shot is 115 degrees. At 65 degrees the speed matters: the simulator's exit speed is half the wheel's rim
+speed, so 2679 RPM is about 265 in/s and misses. About 2275 RPM (225 in/s) scored 4 of 4, 3 runs (a test
+copy of Tunables). Find the real speed on the robot once the ramp is 65 degrees.
 
 **Route** (tank: turns, forward and back only; numbers in `Tunables.Auto`): back 4 in off the wall,
 fire all four (the intake stays folded until now: at START it would fall onto the wall, so the auto
@@ -107,8 +108,8 @@ time for the park steps if firing is slow.
 **Check it** (from the `ftc-helper-lib` folder): `./gradlew :sim:scenario -Pfile=../simulator/scenarios/r1-auto.sim`.
 It checks the start spot, four fired, the intake pushed over off the wall, no bumps, the end pose
 (at least 2 in from the wall, in the zone), under 25 s, and prints the shot verdicts and points. With
-the robot file's 53 degree shot: 0 of 4 in the CELL (all miss), red 23 points. With a 65 or 70 degree shot at 225 in/s
-(a test copy of the robot file): 4 of 4 clean, 5 runs each, the HIVE tips (+20), red 37-38.
+the robot file's 65 degree shot at 2679 RPM: 0 of 4 in the CELL (too fast), red 23 points. At 2275 RPM (225 in/s,
+a test copy of Tunables): 4 of 4 clean, 3 runs, the HIVE tips (+20), red 37. (53 degrees: 0 of 4 at 2679 RPM.)
 
 **Measure on the robot before trusting it:**
 1. The shot: film a shot from the side next to a tape measure. Launch angle (degrees up from the

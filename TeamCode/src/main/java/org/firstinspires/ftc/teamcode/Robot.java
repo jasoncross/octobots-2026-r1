@@ -74,11 +74,11 @@ public class Robot extends RobotDefinition {
                 .feeder(Indexer.crServo("windmill").part("gobilda-2000-torque").reversed().optional())
                 .spinAtStart()   // at speed from START, ready for the first shot (LB lets it coast)
                 .looks(launcherSlide, flywheel)
-                .shotAngle(127));   // 53° up from the floor, out of the back (the ramp, measured)
+                .shotAngle(115));   // 65° up from the floor, out of the back (the planned ramp; the built one is 53°)
 
         // Parts that do not move: goBILDA's tower behind the launcher, and our ramp out of the back.
         fixed(Shape.box("tower").atMm(-88, 0, 40).sizeMm(48, 184, 264),
-              Shape.box("ramp").atMm(-180, 0, 200).sizeMm(120, 150, 10).tiltDeg(-53));   // 53° up from the floor toward the back (measured), like the shots (127°)
+              Shape.box("ramp").atMm(-180, 0, 200).sizeMm(120, 150, 10).tiltDeg(-65));   // 65° up from the floor toward the back (planned; built at 53°), like the shots (115°)
 
         // Right after START, push the intake over (the library moves nothing in INIT: its safety choice).
         atStart(() -> deployAtStart ? Actions.deployIntake(this)
