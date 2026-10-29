@@ -28,13 +28,16 @@ All in `TeamCode/src/main/java/org/firstinspires/ftc/teamcode/`:
 How the library works: `ftc-helper-lib/docs/modules/robot.md`; short "how do I...?" answers:
 `ftc-helper-lib/docs/cookbook.md`.
 
-**Tune and check** (the library's own OpMode, "Finders" group on the Driver Station) has every check and
-finder for this robot in one menu: D-pad to pick, A to open, START to run. **The finders** (`finders/`, the
-same group) are the same tools one file each. They measure the numbers and show the lines to copy into
-`Tunables.java` or `Robot.java`: **R1 Hardware Check** (every device found, each motor
-turns the right way), **R1 Motor Direction Check** (wheels off the ground: X = left, Y = right, each
-wheel must roll forward), **R1 Servo Finder** (the deploy servo's positions), **R1 Flywheel Finder** (the
-launcher's kP..kF), **R1 Drive Tuner** (the wheel size, for the autonomous).
+**Tune and check** (the library's own OpMode, TeleOp list, "Finders" group; no file in our code) has
+every check and finder for this robot in one menu: D-pad up/down to pick, **A** to open, **START** to run;
+STOP, then INIT, for the next one. For robot 1 it lists the **Hardware Check** (every device found, each
+motor turns, the IMU), the **Servo Finder** (the deploy servo's positions), the **Flywheel Finder** (the
+launcher's kP..kF), the **Drive Tuner** (the wheel size, for the autonomous) and the **Shot Tuner** (not
+used by robot 1: it shoots from one spot). They show the lines to copy into `Tunables.java` or
+`Robot.java`. One file of our own stays in `finders/`: **R1 Motor Direction Check** (robot on a block:
+X = left, Y = right, each wheel must roll forward), because it uses our drive's `.reversed(...)`.
+The full first-time order, with what "pass" means at each step: the team pages' Part C,
+"The first robot sessions" (https://crossbotics.com/teams/8938-octobots/robot/).
 How: `ftc-helper-lib/docs/guides/finders.md`.
 
 ## Version 1
@@ -59,15 +62,15 @@ the simulator), so the driver taps **B** (intake off) when the robot is full.
 72 mm Boot-Wheels, flush with the roller and low, from photos; the roller's tubing is soft in the simulator), the
 deploy servo's arm, the flywheel slide, the ramp, the shot angle. Measure the robot and replace them.
 **Still to find on the robot**, in this order:
-1. **R1 Hardware Check**: every device found, each motor and servo turns the right way. Then
+1. **Tune and check > Hardware Check**: every device found, each motor and servo turns. Then
    **R1 Motor Direction Check** (robot on a block): each drive wheel rolls forward.
 2. How the Control Hub is mounted (`imu(...)` in Robot.java: the way its logo and USB port face).
-3. The deploy servo's positions with **R1 Servo Finder** (`Tunables.IntakeDeploy`: `stowed`,
+3. The deploy servo's positions with **Tune and check > Servo Finder** (`Tunables.IntakeDeploy`: `stowed`,
    `deployed`). `travelSec` is the time for a full 0-to-1 move (now from the servo's catalog speed):
    keep it, or time the push and divide by `deployed - stowed`.
-4. The flywheel's numbers with **R1 Flywheel Finder** (`Tunables.Launcher` kP..kF: today goBILDA's),
+4. The flywheel's numbers with **Tune and check > Flywheel Finder** (`Tunables.Launcher` kP..kF: today goBILDA's),
    and the windmill's `feedSec` (the library's 0.4 s for now: watch it feed one piece, never two).
-5. The wheel size with **R1 Drive Tuner**, then `Tunables.Drive.calibrated = true` (until then the
+5. The wheel size with **Tune and check > Drive Tuner**, then `Tunables.Drive.calibrated = true` (until then the
    autonomous refuses to run).
 6. The shot: its real launch angle and speed (see "The autonomous" below), then the start spot.
 7. Every number marked "est." or GUESS in Robot.java (measure the robot), then remake the simulator's
@@ -119,7 +122,7 @@ too fast. At 53 degrees: 0 of 4.)
    remake the robot file, and run the hit rate from the start spot (simulator page: Hit rate).
 2. Then the speed: tune `Tunables.Launcher.speedRpm` from the start spot until all four go in.
 3. That the four preloads fire with the intake still folded up.
-4. The drive: R1 Drive Tuner first (the inches are only right on a tuned robot), then check the end
+4. The drive: the Drive Tuner (Tune and check) first (the inches are only right on a tuned robot), then check the end
    spot: at least 2 in from the wall, partly in the LOADING ZONE. Change `Tunables.Auto` if not.
 5. Our partner robot must not start or park in the same places.
 
@@ -170,7 +173,7 @@ and the autonomous (from its start spot it fires all four, then parks in the LOA
 No fold-out servo on the robot yet? Nothing to change: `intake_deploy` is `optional()` in `Robot.java`.
 Leave it out of the robot configuration: INIT says it is off (at events a loud `!!` warning), the intake
 is put down by hand before the match and starts at START, and X does nothing. Add it to the configuration
-when the servo is on, and run the **R1 Servo Finder** before any TeleOp. Note: with the intake down, the
+when the servo is on, and run the **Servo Finder** (Tune and check) before any TeleOp. Note: with the intake down, the
 robot may be too long for the 18 in start cube; check it in a sizing box. `r1-no-deploy-servo.sim`
 checks this (`set device intake_deploy missing`); in the browser simulator, add `missing = intake_deploy`
 to the robot file.

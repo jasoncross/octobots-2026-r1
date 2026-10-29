@@ -13,7 +13,7 @@ import static com.crossbotics.ftchelper.robot.Starting.*;
  *
  * Tune on the robot with the tuning menu (PRACTICE profile: INIT, START, then hold GUIDE on gamepad 1
  * for 1 s): INIT lists every value that differs from this file, ready to copy back. This file stays the
- * record. The finders (the "Finders" group on the Driver Station, files in {@code finders/}) measure
+ * record. The finders ("Tune and check", in the "Finders" group on the Driver Station) measure
  * the numbers and show the lines to copy here.
  */
 public class Tunables {
