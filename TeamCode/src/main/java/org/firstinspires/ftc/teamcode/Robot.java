@@ -14,7 +14,7 @@ import com.crossbotics.ftchelper.robot.Shape;
 /**
  * Robot 1, version 1 (file 1 of 5): WHAT is on the robot. A goBILDA Strafer chassis (mecanum wheels: it
  * also drives sideways), a folding intake that a servo pushes over at START, tubing rollers, two corner
- * spinners, and a flywheel fed by Gecko wheels. POLLEN only. FRONT = the launcher (shots go up a front ramp).
+ * spinners, and a flywheel fed by two arms that pinch each POLLEN in. POLLEN only. FRONT = the launcher (shots go up a front ramp).
  * Sizes and places in mm: forward, left, up from the chassis middle on the tiles, or from the shape it rides on.
  * "est." = an estimate (CAD or photos): measure ours. More: https://crossbotics.com/teams/8938-octobots/build/
  */
@@ -29,7 +29,7 @@ public class Robot extends RobotDefinition {
     @Override
     protected void define() {
         // The drive: the Strafer's four 312 RPM motors and 104 mm GripForce mecanum wheels. Order: FL, FR, BL, BR.
-        // The library reverses the left side (front_left, back_left): R1 Motor Direction Check checks it.
+        // The library reverses the left side (front_left, back_left): Tune and check > Motor Direction Check checks it.
         // "front_left" ... "imu" = names in the robot configuration (Driver Station), exactly.
         drive(Drive.mecanum("front_left", "front_right", "back_left", "back_right")
                 .motor("gobilda-5203-312").wheel("gobilda-gripforce-mecanum-104")
@@ -64,18 +64,16 @@ public class Robot extends RobotDefinition {
                 .looks(intakeArm, roller, leftSpinner, rightSpinner));
 
         // The launcher: one 96 mm wheel. Shots leave up the front ramp. Robot 1 shoots POLLEN only.
-        // Two feed parts: the "feeder_wheel" CR servo (a goBILDA Speed servo set to spin) turns Gecko wheels that move the
-        // POLLEN up to the "feeder_arm" (a goBILDA torque servo), which pushes each one up into the flywheel and comes back.
-        // The wheel runs only while firing (first, then the arm pushes) or all the time: Tunables.FeederWheel alwaysOn.
+        // Two feed arms, one on each side (goBILDA torque servos): they pinch together behind the POLLEN and push it
+        // into the flywheel, then open again. alsoServoReversed: the right arm faces the left one, so it mirrors it.
         // Two shapes: its sliding mount and the wheel riding on it.
-        // "launcher", "feeder_arm", "feeder_wheel" = names in the robot configuration. Numbers: Tunables.Launcher, .FeederArm, .FeederWheel.
+        // "launcher", "feeder_left", "feeder_right" = names in the robot configuration. Numbers: Tunables.Launcher, .FeederLeft.
         // optional(): the robot runs without them.
         Shape launcherSlide = Shape.slide().name("launcher_slide").atMm(40, 5, 120).sizeMm(30, 30, 48)
                 .passive().travelMm(20).note("est.");
         Shape flywheel = Shape.flywheel("gobilda-hogback-96").on("launcher_slide").atMm(0, 0, 48);
         launcher = add(Launcher.flywheel("launcher", "gobilda-5203-6000")
-                .feeder(Indexer.servo("feeder_arm").part("gobilda-2000-torque").optional())
-                .feedWheel(Indexer.crServo("feeder_wheel").part("gobilda-2000-speed").reversed().optional())
+                .feeder(Indexer.servo("feeder_left").part("gobilda-2000-torque").alsoServoReversed("feeder_right").optional())
                 .spinAtStart()   // at speed from START and between shots, ready to fire (LB lets it coast to park)
                 .looks(launcherSlide, flywheel)
                 .shotAngle(75));   // 75° up from the floor, out of the front (the planned ramp; the built one is 53°)

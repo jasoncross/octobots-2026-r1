@@ -1,0 +1,21 @@
+# Robot 1's two feed arms (torque servos, one on each side): they pinch together behind each POLLEN and push
+# it into the flywheel, then open again. The right arm mirrors the left (alsoServoReversed in Robot.java).
+# Run it: the "Simulator tests" button in Android Studio (all tests), or from the ftc-helper-lib folder:
+#   ./gradlew :sim:scenario -Pfile=../simulator/scenarios/r1-two-arms.sim
+robot ../robot.properties
+
+set tunable FeederLeft.push 0.7          # a push position that shows the mirror (the stand-in is 0.5)
+init "R1 TeleOp"
+start
+expect within 4 motor launcher velocity > 1000   # spins from START
+expect servo feeder_left target = 0 0.01          # both arms open
+expect servo feeder_right target = 1 0.01         # (mirrored: its 0 is the other end)
+press g1.right_bumper                  # RB: fire one
+expect within 1 servo feeder_left target = 0.7 0.02    # both arms pinch together
+expect servo feeder_right target = 0.3 0.02           # (mirrored)
+expect within 2 launched = 1
+expect within 2 servo feeder_left target = 0 0.01   # both open again
+expect servo feeder_right target = 1 0.01
+stop
+
+expect error none

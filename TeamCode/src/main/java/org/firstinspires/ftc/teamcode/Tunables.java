@@ -55,17 +55,12 @@ public class Tunables {
         public static boolean batteryCompensation = false;             // off until proven on a real robot
     }
 
-    public static class FeederArm {                                    // "feeder_arm" in the configuration
-        public static double rest = MEASURE;                           // arm down, out of the POLLEN's way (Servo Finder)
-        public static double push = MEASURE;                           // arm up: the POLLEN is in the flywheel (Servo Finder)
-        public static double pushSec = DEFAULT;                        // time to push up (the torque servo's catalog time)
-        public static double returnSec = DEFAULT;                      // time to come back down (the same)
-    }
-
-    public static class FeederWheel {                                  // "feeder_wheel" in the configuration
-        public static double power = DEFAULT;                          // wheel power, 0 to 1 (1.0)
-        public static boolean alwaysOn = false;                        // true = runs all the time the flywheel is on
-        public static double stageSec = DEFAULT;                       // only while firing: runs this long before the arm pushes (0.2)
-        public static double stopSec = DEFAULT;                        // only while firing: stops this long after the push starts, below 0 = before it (0.3)
+    /** Both feed arms ("feeder_left" and "feeder_right"): the right one mirrors these numbers. */
+    public static class FeederLeft {                                   // "feeder_left" in the configuration
+        public static double rest = MEASURE;                           // arms open, out of the POLLEN's way (Servo Finder on feeder_left)
+        public static double push = MEASURE;                           // arms pinched: the POLLEN is in the flywheel (Servo Finder)
+        public static double pushSec = DEFAULT;                        // time to push (the torque servo's catalog time)
+        public static double returnSec = DEFAULT;                      // time to open again (the same)
+        public static double alsoTrim = DEFAULT;                       // the right arm: raw position added so the two meet (0)
     }
 }
